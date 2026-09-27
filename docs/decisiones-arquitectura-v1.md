@@ -7,7 +7,7 @@ Este documento registra las principales decisiones técnicas y arquitectónicas 
 
 El proyecto será desarrollado individualmente y tiene como objetivo integrar los conocimientos adquiridos en las materias de Análisis de Sistemas, Backend con Node.js + Express y Frontend con React.
 
-El documento complementa al documento de alcance funcional del proyecto (`alcance-informatica-v2.md`) y establece principalmente **cómo se construirá técnicamente el sistema**, sin reemplazar las definiciones funcionales y de negocio establecidas en dicho alcance.
+El documento complementa a los documentos funcionales y de análisis del proyecto (`alcance-informatica-v3.md` y `modelo-datos-analisis-v1.md`) y establece principalmente **cómo se construirá técnicamente el sistema**, sin reemplazar las definiciones funcionales y de negocio establecidas en dichos documentos, que constituyen la fuente de verdad del alcance.
 
 Las decisiones podrán evolucionar durante el desarrollo cuando exista una justificación técnica o cuando nuevas versiones del sistema requieran ampliar la arquitectura.
 
@@ -665,17 +665,27 @@ El sistema deberá permitir incorporar progresivamente funcionalidades adicional
 
 La arquitectura deberá favorecer una evolución progresiva del sistema.
 
-Una de las posibles evoluciones planteadas es:
+Dentro del MVP, el flujo de cobro se resuelve con un **pago simulado**:
+
+```text
+Venta
+  ↓
+Pago (simulado)
+```
+
+El `Pago` representa el registro interno del cobro de la venta y no interactúa con servicios externos.
+
+Como ampliación opcional, posteriormente podría incorporarse una integración con un proveedor de pagos:
 
 ```text
 Venta
   ↓
 Pago
   ↓
-Stock
+Proveedor de pago (Mercado Pago)
 ```
 
-Posteriormente podría incorporarse una lógica más avanzada:
+De igual modo, como evolución futura podría incorporarse una lógica de reserva:
 
 ```text
 Venta
@@ -689,15 +699,26 @@ Confirmación
 Descuento o liberación de stock
 ```
 
-Estas extensiones no forman parte necesariamente del MVP y no deberán implementarse anticipadamente si afectan el alcance establecido para una versión.
+Estas extensiones no forman parte del MVP y no deberán implementarse anticipadamente.
+
+### 15.1 Impacto arquitectónico conceptual de las extensiones
+
+Las siguientes ampliaciones opcionales se documentan en el alcance funcional y se ordenan por dificultad relativa. Su impacto arquitectónico es conceptual y no constituye un requisito de diseño del MVP:
+
+1. **Kardex / historial de movimientos de stock (dificultad baja):** añadiría una capa de registro de movimientos derivada de compras, ventas y armados, sin alterar el núcleo.
+2. **Garantías y devoluciones (dificultad media):** añadiría un módulo de postventa con reglas condicionales sobre stock, extendiendo el módulo de ventas.
+3. **Envíos y logística (dificultad media/alta):** incorporaría un dominio de entrega con entidades y estados propios, independiente del núcleo de ventas. No existe un diseño arquitectónico previo de nodos o distribución; cualquier estructura de puntos de entrega sería una propuesta de evolución dentro de esta ampliación.
+4. **Integración con Mercado Pago (dificultad alta):** evolucionaría el módulo de pagos hacia la comunicación con un proveedor externo (ver sección 16).
+
+La arquitectura del MVP debe quedar preparada para incorporar estas ampliaciones sin rediseñar el núcleo, pero no se compromete a implementarlas.
 
 ---
 
-# 16. Mercado Pago
+# 16. Mercado Pago (extensión opcional)
 
-La integración con Mercado Pago se considera una funcionalidad planificada para una etapa posterior al MVP.
+La integración con Mercado Pago se considera una **extensión opcional** del sistema, no un requisito del núcleo.
 
-No se incorporará como requisito obligatorio de la primera versión funcional.
+En el MVP, el cobro se resuelve internamente mediante un pago simulado; Mercado Pago representa una posible ampliación futura que sustituiría ese registro interno por un flujo con proveedor externo.
 
 La arquitectura deberá evitar acoplar innecesariamente la entidad `Venta` con un proveedor de pagos específico.
 
@@ -713,9 +734,7 @@ Proveedor de pago
 
 La entidad `Pago` permitirá mantener separada la información de la venta de los detalles específicos de un proveedor externo.
 
-Las decisiones funcionales pendientes relacionadas con Mercado Pago no deberán ser inventadas durante la implementación.
-
-Entre ellas se encuentran:
+Las decisiones funcionales y técnicas detalladas de esta ampliación no deberán ser inventadas durante la implementación del MVP. Entre ellas se encuentran:
 
 - quién inicia el pago;
 - cuándo se crea la venta;
@@ -726,13 +745,13 @@ Entre ellas se encuentran:
 - utilización de webhooks;
 - datos externos que deberán almacenarse.
 
-Estas decisiones deberán definirse antes de implementar el flujo correspondiente.
+Estas decisiones deberán definirse únicamente si la extensión llega a implementarse.
 
 ---
 
-# 17. Reserva de stock
+# 17. Reserva de stock (evolución futura)
 
-La reserva de stock se considera una posible evolución posterior.
+La reserva de stock se considera una posible evolución futura, no incluida entre las extensiones principales del proyecto.
 
 El MVP utilizará el modelo de stock definido en el alcance actual.
 
@@ -761,7 +780,7 @@ La incorporación de reservas implicaría definir adicionalmente:
 - interacción con pagos;
 - consistencia y concurrencia.
 
-Por su complejidad, esta funcionalidad no se incorporará al MVP salvo que el avance del proyecto permita implementarla sin comprometer las funcionalidades principales.
+Por su complejidad, esta funcionalidad no se incorporará al MVP y queda como evolución futura, sin competir con las extensiones opcionales principales descritas en el alcance.
 
 ---
 
@@ -850,7 +869,12 @@ Las siguientes decisiones quedan abiertas y deberán definirse antes de implemen
 - restricciones;
 - estrategia de migraciones.
 
-### Mercado Pago
+### Pago (MVP)
+
+- medios de pago simulados concretos;
+- relación exacta entre Venta y Pago (cardinalidad definitiva).
+
+### Mercado Pago (extensión opcional)
 
 - flujo de inicio del pago;
 - estados;
@@ -859,7 +883,7 @@ Las siguientes decisiones quedan abiertas y deberán definirse antes de implemen
 - relación exacta entre Venta y Pago;
 - comportamiento del stock.
 
-### Reserva de stock
+### Reserva de stock (evolución futura)
 
 - momento de creación;
 - duración;
@@ -876,7 +900,7 @@ Las decisiones pendientes no deberán ser inventadas por herramientas de asisten
 La arquitectura técnica deberá mantenerse alineada con:
 
 ```text
-alcance-informatica-v2.md
+alcance-informatica-v3.md + modelo-datos-analisis-v1.md
         ↓
 BRD
         ↓
@@ -888,6 +912,8 @@ Implementación
 ```
 
 El alcance funcional define principalmente **qué debe hacer el sistema**.
+
+El modelo de datos establece la propuesta conceptual de entidades y relaciones.
 
 El BRD y el FRD formalizan los requerimientos.
 

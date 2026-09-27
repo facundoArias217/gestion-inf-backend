@@ -1,3 +1,5 @@
+<!-- Nota: ajustado según el BRD v1.1 (docs/brd.md), fuente de verdad del proyecto. Se incorporó la RN-ARM-02 ("El sistema deberá advertir posibles incompatibilidades entre componentes, sin impedir su selección o venta"), que este documento omitía al limitar el armado a la validación de completitud básica. -->
+
 # Análisis de alcance funcional — Sistema de Gestión de Tienda de Informática
 
 **Versión: v3**
@@ -13,6 +15,7 @@ Materias integradas: Análisis de Sistemas · Backend (Node.js + Express) · Fro
 |---|---|---|
 | v2 | Versión previa del alcance funcional. | Equipo del proyecto |
 | v3 | Consolidación del alcance v2 incorporando las decisiones cerradas en el análisis del modelo de datos. | Equipo del proyecto |
+| v3.1 | Reformulación de pagos: incorporación del pago simulado al MVP y reclasificación de Mercado Pago, envíos/logística y demás ampliaciones como extensiones opcionales ordenadas por dificultad. El roadmap obligatorio termina en el MVP. | Equipo del proyecto |
 
 **Resumen de actualizaciones de v3 respecto de v2:**
 
@@ -94,7 +97,7 @@ Se evaluaron cuatro candidatas, distinguiendo entre diferenciadores de **dominio
 - **Valor de negocio:** alto — es la funcionalidad más identificable del rubro informático específicamente.
 - **Complejidad:** media/alta. Requiere: seleccionar productos de distintas categorías, validar que estén cubiertas las categorías consideradas obligatorias para un armado (procesador, motherboard, fuente, gabinete, RAM, almacenamiento), y verificar stock de cada componente antes de confirmar.
 - **Relación con análisis de sistemas:** muy buena — obliga a modelar una relación N:M (Armado–Producto) y una regla de negocio de "completitud" no trivial.
-- **Decisión:** **incluir**. Es la funcionalidad con mejor relación valor/complejidad de las tres, siempre que la "compatibilidad" se mantenga básica (ver sección 6, regla 4) y no se intente validar compatibilidad técnica real (sockets, wattage, chipsets — ver sección 12).
+- **Decisión:** **incluir**. Es la funcionalidad con mejor relación valor/complejidad de las tres, siempre que la "compatibilidad" se mantenga básica (ver sección 6, regla 4) y no se intente validar compatibilidad técnica real (sockets, wattage, chipsets — ver sección 12); el sistema sí deberá advertir posibles incompatibilidades entre componentes, sin impedir su selección o venta (ver sección 6, regla 18).
 ### Presupuestos
 - **Valor de negocio:** alto — modela un proceso real: cotizar antes de vender, con posibilidad de que el cliente no confirme.
 - **Complejidad:** media. Requiere un estado (pendiente/convertido/vencido/rechazado) y una operación de conversión a venta.
@@ -107,8 +110,8 @@ Se evaluaron cuatro candidatas, distinguiendo entre diferenciadores de **dominio
 ### Integración de pagos online (Mercado Pago)
 - **Valor de negocio:** medio/alto — agrega un flujo real de pago asociado a una venta y permite demostrar integración con un servicio externo.
 - **Complejidad:** alta. Requiere desacoplar la venta del pago, manejar estados de pago, integrar una API externa y contemplar la comunicación de resultados de la operación.
-- **Decisión:** **funcionalidad de complejidad adicional, planificada para una versión posterior al MVP**. No reemplaza a los diferenciadores de dominio: **Armado de PCs + Presupuestos** siguen siendo la identidad principal del sistema. Mercado Pago aporta principalmente complejidad técnica e integración externa.
-- **Criterio de alcance:** debe incorporarse sobre el flujo interno de ventas, no mediante un e-commerce público ni un carrito de compras para clientes.
+- **Decisión:** **extensión opcional**, no forma parte del MVP. No reemplaza a los diferenciadores de dominio: **Armado de PCs + Presupuestos** siguen siendo la identidad principal del sistema. Mercado Pago aporta principalmente complejidad técnica e integración externa.
+- **Criterio de alcance:** debe incorporarse sobre el flujo interno de ventas, no mediante un e-commerce público ni un carrito de compras para clientes, y solo como ampliación posterior al núcleo funcional.
 
 **Conclusión:** la combinación **Armado de PCs + Presupuestos** es la que mejor equilibrio ofrece entre identidad de negocio propia del rubro y complejidad manejable por una sola persona. Ambas features se combinan naturalmente en un solo flujo central (sección 5), en lugar de ser tres funcionalidades sueltas y desconectadas.
 
@@ -162,20 +165,23 @@ Un cliente compra un producto suelto (por ejemplo, un mouse) sin pasar por una c
 
 16. Un armado es una entidad autónoma que representa la configuración de una PC; puede existir antes de asociarse a un presupuesto.
 17. Un armado debe incluir, como mínimo, una categoría de cada tipo considerado obligatorio (por ejemplo: procesador, motherboard, fuente) — es una regla de **completitud básica**, no de compatibilidad técnica real (no se valida socket, wattage ni chipset).
-18. El stock de los componentes de un armado se verifica dos veces: al crear el presupuesto (disponibilidad informativa) y al confirmar la venta (disponibilidad real), porque puede haber cambiado en el medio.
-19. Un armado puede asociarse a un presupuesto únicamente cuando se encuentra en estado `FINALIZADO`.
-20. Los componentes de un armado no se duplican en el detalle del presupuesto; la PC armada se referencia desde el armado hacia el presupuesto, y sus componentes se mantienen únicamente en el armado.
+18. El sistema deberá advertir posibles incompatibilidades entre componentes, sin impedir su selección o venta (RN-ARM-02 del BRD; advertencia informativa y no bloqueante, que no sustituye a la validación de completitud básica).
+19. El stock de los componentes de un armado se verifica dos veces: al crear el presupuesto (disponibilidad informativa) y al confirmar la venta (disponibilidad real), porque puede haber cambiado en el medio.
+20. Un armado puede asociarse a un presupuesto únicamente cuando se encuentra en estado `FINALIZADO`.
+21. Los componentes de un armado no se duplican en el detalle del presupuesto; la PC armada se referencia desde el armado hacia el presupuesto, y sus componentes se mantienen únicamente en el armado.
 
 ### Productos y baja lógica
 
-21. Un producto no puede eliminarse del catálogo si tiene movimientos asociados (compras, ventas o armados) — solo puede darse de baja (soft delete), para no romper la trazabilidad histórica.
-22. El mismo criterio de baja lógica aplica a clientes, proveedores y usuarios cuando corresponda, evitando eliminar físicamente información histórica.
+22. Un producto no puede eliminarse del catálogo si tiene movimientos asociados (compras, ventas o armados) — solo puede darse de baja (soft delete), para no romper la trazabilidad histórica.
+23. El mismo criterio de baja lógica aplica a clientes, proveedores y usuarios cuando corresponda, evitando eliminar físicamente información histórica.
 
 ### Pagos
 
-23. La información de pago debe mantenerse separada conceptualmente de la venta: una Venta representa la operación comercial y un Pago representa el intento/resultado de cobrarla.
-24. La incorporación de un medio de pago externo no debe alterar las reglas fundamentales de venta y stock; el flujo deberá poder evolucionar hacia nuevos medios de pago sin rediseñar el núcleo de ventas.
-25. La reserva de stock vinculada a un pago, si se implementa en una versión futura, deberá distinguir stock total, reservado y disponible, y liberar una reserva cuando corresponda según el estado de la operación. Esta regla queda como lineamiento futuro y **no forma parte del MVP**.
+24. La información de pago debe mantenerse separada conceptualmente de la venta: una Venta representa la operación comercial y un Pago representa el intento/resultado de cobrarla.
+25. El **pago simulado** forma parte del MVP: permite registrar internamente el cobro de una venta mediante un medio de pago simulando (efectivo, transferencia o tarjeta), sin interactuar con servicios externos. Registra el monto y el resultado del cobro.
+26. El pago simulado **no reserva stock**: el descuento de stock continúa perteneciendo a la operación de venta.
+27. La incorporación de un medio de pago externo (Mercado Pago) es una **extensión opcional**. No debe alterar las reglas fundamentales de venta y stock; el flujo deberá poder evolucionar hacia nuevos medios de pago sin rediseñar el núcleo de ventas.
+28. La reserva de stock vinculada a un pago permanece fuera del MVP y no forma parte de las extensiones principales. Si llegara a implementarse en una evolución futura, deberá distinguir stock total, reservado y disponible, y liberar una reserva cuando corresponda según el estado de la operación.
 
 ---
 
@@ -267,6 +273,14 @@ VentaDetalle                 (resuelve Venta N:M Producto)
 - cantidad
 - precioUnitario             (histórico)
 
+Pago                          (pago simulado — MVP)
+- id
+- ventaId                     (FK -> Venta)
+- medioPago                   (efectivo | transferencia | tarjeta — simulados)
+- estado
+- monto
+- fecha
+
 Armado
 - id
 - usuarioId                  (FK -> Usuario, quien configura)
@@ -295,6 +309,7 @@ ArmadoComponente             (resuelve Armado N:M Producto)
 - **Armado ↔ Componentes:** N:M, resuelta con ArmadoComponente ("Componente" no es una entidad distinta de "Producto").
 - **Armado ↔ Presupuesto:** un armado autónomo puede asociarse opcionalmente a un presupuesto (0..1). Los componentes del armado no se duplican en PresupuestoDetalle.
 - **Presupuesto ↔ Venta:** 1 → 0..1. Un presupuesto puede convertirse en, a lo sumo, una venta.
+- **Venta ↔ Pago:** 1 → 0..1. Una venta puede tener asociado un pago (simulado). La cardinalidad definitiva se valida al definir el flujo de pago; la separación conceptual Venta ↔ Pago se mantiene.
 
 ---
 
@@ -324,11 +339,22 @@ ArmadoComponente             (resuelve Armado N:M Producto)
 - `BORRADOR`: la configuración está en edición; no puede asociarse a un presupuesto.
 - `FINALIZADO`: la configuración está lista; puede asociarse a un presupuesto.
 
+### Pago (simulado)
+
+- `PENDIENTE`: el cobro fue registrado pero aún sin confirmar su resultado.
+- `CONFIRMADO`: el cobro se registró como realizado.
+- `RECHAZADO`: el intento de cobro resultó fallido.
+
+Los estados del pago simulado son conceptuales y pueden refinarse en el BRD. Los estados de una eventual integración con Mercado Pago se definen únicamente si dicha extensión se implementa.
+
 ---
 
-## 9. Alcance MVP
+## 9. Alcance
 
-### OBLIGATORIAS — v1.0 (MVP)
+### 9.1 Alcance obligatorio / MVP
+
+Funcionalidades que deben estar implementadas para considerar terminado el proyecto:
+
 - Autenticación con dos roles (administrador, vendedor).
 - Gestión de productos y categorías.
 - Gestión de clientes y proveedores.
@@ -336,26 +362,33 @@ ArmadoComponente             (resuelve Armado N:M Producto)
 - Ventas con detalle de productos (descuenta stock), incluyendo venta directa sin presupuesto.
 - Presupuestos: creación, conversión a venta, estados (incluyendo vencimiento).
 - Armado de PCs: selección de componentes, validación de completitud básica y de stock, integrado con presupuestos/ventas.
+- Pago simulado: registro del cobro de una venta mediante un medio de pago interno, sin interactuar con servicios externos.
 
-### PLANIFICADAS / VERSIONES POSTERIORES
-- **v1.1:** preparación del dominio para pagos mediante la incorporación conceptual de `Pago` y sus estados, sin integración real con un proveedor externo.
-- **v2.0:** integración con Mercado Pago sobre ventas existentes. Incluye comunicación con la API del proveedor y manejo de estados de pago.
-- **v2.1:** reserva de stock vinculada al proceso de pago, si el tiempo y la complejidad restante lo permiten.
-- Marca como entidad propia (en vez de campo de texto).
-- Garantías/devoluciones.
-- Historial de movimientos de stock (kardex).
+Los diferenciadores principales del proyecto son **Presupuestos** y **Armado de PCs**. El pago simulado cierra el flujo comercial sin depender de un proveedor externo.
+
+### 9.2 Evolución del sistema
+
+Funcionalidades menores que podrían incorporarse posteriormente si corresponde, sin ser necesarias para completar el MVP:
+
+- Marca como entidad propia (en lugar de campo de texto).
 - Dashboard con métricas adicionales (productos más vendidos, comparativas).
 
-### FUERA DE ALCANCE
+### 9.3 Extensiones opcionales — propuestas de ampliación
+
+Las siguientes extensiones no forman parte de los requisitos obligatorios del proyecto. Su implementación es opcional y su ausencia no implica incumplimiento del alcance definido. Representan ampliaciones futuras que pueden incorporarse una vez completado el núcleo funcional, incrementando progresivamente la complejidad funcional y técnica del sistema.
+
+Ver sección 15 para el detalle de cada extensión.
+
+### 9.4 Fuera de alcance
+
 - E-commerce con carrito de compras público y checkout para clientes.
 - Facturación real / integración con AFIP.
-- Otros proveedores de pago distintos de la integración definida para Mercado Pago.
+- Otros proveedores de pago distintos de Mercado Pago.
 - Funciones propias de una plataforma financiera, conciliación bancaria o gestión financiera avanzada.
 - Compatibilidad técnica avanzada de hardware (sockets, chipsets, cálculo de wattage).
 - Generación de imágenes (renders de la PC armada).
 - Importación automática de catálogos de proveedores.
 - Múltiples sucursales.
-- Sistema de envíos.
 
 ---
 
@@ -408,6 +441,9 @@ POST   /armados                     (con lista de componentes)
 GET    /armados/:id
 GET    /armados/:id/validar         (chequeo de completitud + stock)
 
+POST   /ventas/:id/pago             (registro del pago simulado de una venta)
+GET    /pagos/:id
+
 GET    /dashboard/resumen
 ```
 
@@ -417,28 +453,26 @@ GET    /dashboard/resumen
 
 **Clasificación: medio.**
 
-Es un escalón más complejo que un sistema de stock simple, porque tiene **varias entidades de detalle** (CompraDetalle, VentaDetalle, PresupuestoDetalle, ArmadoComponente) que implican relaciones N:M reales, más una máquina de estados (Presupuesto, y estados para Compra, Venta y Armado) y una regla de completitud/validación (Armado). El MVP no depende de integraciones externas ni de módulos de post-venta obligatorios. Si se incorpora Mercado Pago, la complejidad aumenta por la integración externa, los estados de pago y la necesidad de mantener consistencia entre venta, pago y stock.
+Es un escalón más complejo que un sistema de stock simple, porque tiene **varias entidades de detalle** (CompraDetalle, VentaDetalle, PresupuestoDetalle, ArmadoComponente) que implican relaciones N:M reales, más una máquina de estados (Presupuesto, y estados para Compra, Venta, Armado y Pago simulado) y una regla de completitud/validación (Armado). El MVP no depende de integraciones externas ni de módulos de post-venta obligatorios. Si se incorpora Mercado Pago como extensión opcional, la complejidad aumenta por la integración externa, los estados de pago y la necesidad de mantener consistencia entre venta, pago y stock.
 
 **Módulos más difíciles de implementar:**
 - **Armado de PCs:** tanto la lógica de validación (categorías obligatorias + stock) como el frontend para seleccionar componentes de múltiples categorías de forma clara.
 - **Presupuestos → Ventas:** el manejo de estados y la conversión (recalcular stock/precios al confirmar) requiere cuidado para no duplicar lógica con las ventas directas.
-- **Pagos (v2.0):** integración externa, estados de transacción y sincronización con la venta.
-- **Reserva de stock (v2.1/futura):** distinguir stock disponible y reservado, liberar reservas y evitar inconsistencias ante operaciones concurrentes o pagos que no finalizan.
 - **Compras y Ventas con detalle:** los formularios de "múltiples ítems" (agregar/quitar productos con cantidad y precio) son, en la práctica, la parte de frontend que más tiempo suele llevar, incluso siendo conceptualmente simple.
 
 ---
 
 ## 13. Riesgos de alcance
 
-- **Pagos online / integración con Mercado Pago:** no forman parte del MVP v1.0. Se planifican para v2.0 porque requieren credenciales de proveedor, integración con API, manejo de estados de transacción y eventualmente webhooks. La integración deberá apoyarse sobre el modelo de Venta/Pago ya preparado en v1.1.
-- **Reserva de stock asociada al pago:** se considera v2.1/futura. La dificultad está en mantener consistencia entre stock disponible, stock reservado y estado del pago, especialmente ante vencimientos, rechazos, reintentos o concurrencia.
+- **Pagos online / integración con Mercado Pago:** no forman parte del MVP v1.0; son una extensión opcional. Requieren credenciales de proveedor, integración con API, manejo de estados de transacción y eventualmente webhooks. La integración deberá apoyarse sobre el modelo de Venta/Pago ya definido en el MVP.
+- **Reserva de stock asociada al pago:** se considera una posible evolución futura, fuera de las extensiones principales. La dificultad está en mantener consistencia entre stock disponible, stock reservado y estado del pago, especialmente ante vencimientos, rechazos, reintentos o concurrencia.
+- **Envíos / logística:** no forman parte del MVP; son una extensión opcional. La complejidad radica en incorporar un dominio de entrega con entidades y estados propios, ajeno al núcleo de ventas.
 - **Facturación real / integración con AFIP:** fuera de alcance — tiene validez fiscal real y reglas propias de un sistema de facturación electrónica; totalmente desproporcionado para el objetivo académico.
 - **E-commerce / carrito de compras público:** fuera de alcance — implicaría un frontend público completo, sesiones de invitados y checkout, prácticamente un segundo sistema.
-- **Compatibilidad avanzada de hardware:** fuera de alcance — validar sockets, chipsets o cálculo de consumo (wattage) real requeriría mantener una base de datos de especificaciones técnicas por componente y reglas de matching; es un proyecto de datos en sí mismo. Se mantiene solo la validación de completitud básica (sección 6, regla 17).
+- **Compatibilidad avanzada de hardware:** fuera de alcance — validar sockets, chipsets o cálculo de consumo (wattage) real requeriría mantener una base de datos de especificaciones técnicas por componente y reglas de matching; es un proyecto de datos en sí mismo. Se mantiene solo la validación de completitud básica (sección 6, regla 17), sumada a la advertencia no bloqueante de posibles incompatibilidades entre componentes (sección 6, regla 18).
 - **Generación de imágenes** (por ejemplo, un render de la PC armada): fuera de alcance — es contenido multimedia, no aporta al análisis de sistemas.
 - **Importación automática de catálogos de proveedores:** fuera de alcance — implica parsers para formatos externos variables (Excel, XML, APIs de terceros) que no son parte del dominio del proyecto.
 - **Múltiples sucursales:** fuera de alcance — multiplicaría stock, compras y ventas por sucursal sin aportar valor proporcional a un proyecto individual.
-- **Sistema de envíos:** fuera de alcance — es una integración logística externa, ajena al objetivo del proyecto.
 
 Si en algún momento del desarrollo aparece la tentación de sumar alguno de estos puntos, es señal de que el alcance se está corriendo del objetivo académico original.
 
@@ -446,7 +480,7 @@ Si en algún momento del desarrollo aparece la tentación de sumar alguno de est
 
 ## 14. Versionado y roadmap de implementación
 
-El proyecto se plantea como una evolución por versiones para mantener el alcance controlado y, al mismo tiempo, demostrar que el diseño puede crecer sin rehacer el sistema. Las versiones posteriores son una planificación de evolución, no implican que deban implementarse todas dentro del período académico.
+El proyecto se plantea como una evolución por versiones para mantener el alcance controlado y, al mismo tiempo, demostrar que el diseño puede crecer sin rehacer el sistema. El roadmap obligatorio **termina en el MVP**; las funcionalidades posteriores se documentan como ampliaciones opcionales, no como etapas comprometidas.
 
 | Versión | Objetivo | Estado esperado |
 |---|---|---|
@@ -455,52 +489,118 @@ El proyecto se plantea como una evolución por versiones para mantener el alcanc
 | **v0.3** | Clientes, proveedores, compras y actualización de stock | Planificada |
 | **v0.4** | Ventas y presupuestos | Planificada |
 | **v0.5** | Armado de PCs e integración completa con presupuestos/ventas | Planificada |
-| **v1.0** | MVP completo, integración, validaciones, UX, pruebas y documentación | **Objetivo obligatorio** |
-| **v1.1** | Preparación del dominio para pagos: entidad Pago y estados, sin proveedor real | Planificada |
-| **v2.0** | Integración de Mercado Pago sobre el flujo interno de ventas | Mejora futura |
-| **v2.1** | Reserva de stock vinculada al pago | Mejora futura / opcional |
-| **v3+** | E-commerce, múltiples sucursales, envíos u otras extensiones | Fuera del alcance actual / futuro |
+| **v1.0** | MVP completo, integración, validaciones, pago simulado, UX, pruebas y documentación | **Objetivo obligatorio** |
 
-Cada requerimiento funcional que se derive de este documento deberá poder asociarse a una versión y a un estado. Como criterio de trazabilidad se recomienda utilizar, como mínimo: **RF → versión → módulo → estado**. Los estados pueden ser `Obligatorio v1.0`, `Planificado`, `Futuro` o `Fuera de alcance`.
+### Posibles extensiones futuras
+
+Más allá del MVP, se contemplan ampliaciones opcionales numeradas por dificultad (detalladas en la sección 15). No cuentan con una versión obligatoria dentro del roadmap:
+
+1. Kardex / historial de movimientos de stock.
+2. Garantías y devoluciones.
+3. Envíos y logística.
+4. Integración con Mercado Pago.
+
+Cada requerimiento funcional que se derive de este documento deberá poder asociarse a una etapa y a un estado. Como criterio de trazabilidad se recomienda utilizar, como mínimo: **RF → módulo → etapa → estado**. Los estados pueden ser `Obligatorio`, `Evolución`, `Extensión opcional` o `Fuera de alcance`.
 
 ### 14.1 Criterio de escalabilidad
 
-El sistema deberá permitir la incorporación progresiva de nuevas funcionalidades y módulos sin alterar de manera significativa las funcionalidades existentes. Esto se refleja especialmente en la separación conceptual entre Venta y Pago: la venta constituye el núcleo comercial y el pago puede evolucionar desde un registro interno hasta una integración con Mercado Pago y, eventualmente, otros medios.
+El sistema deberá permitir la incorporación progresiva de nuevas funcionalidades y módulos sin alterar de manera significativa las funcionalidades existentes. Esto se refleja especialmente en la separación conceptual entre Venta y Pago: la venta constituye el núcleo comercial y el pago puede evolucionar desde un registro interno simulado (MVP) hasta una integración con Mercado Pago y, eventualmente, otros medios, como ampliación opcional.
 
-La escalabilidad también se contempla para futuras reservas de stock, garantías/devoluciones, kardex, nuevas modalidades de venta y otros módulos que no forman parte del MVP. Esta capacidad debe entenderse como **diseño preparado para evolución**, no como obligación de implementar todas esas funcionalidades durante el proyecto.
+La escalabilidad también se contempla para las extensiones opcionales de kardex, garantías/devoluciones y envíos/logística, así como para una eventual reserva de stock. Esta capacidad debe entenderse como **diseño preparado para ampliación**, no como obligación de implementar todas esas funcionalidades durante el proyecto.
 
 ### 14.2 Decisiones de negocio todavía pendientes
 
-Para evitar que el BRD o FRD introduzcan decisiones no acordadas, quedan deliberadamente abiertas las siguientes definiciones para la etapa de diseño detallado:
+Para evitar que el BRD o FRD introduzcan decisiones no acordadas, quedan deliberadamente abiertas las siguientes definiciones.
+
+Respecto del pago simulado (MVP) queda por precisar únicamente:
+
+- los medios de pago simulados concretos y sus valores de estado definitivos.
+
+Respecto de la integración con Mercado Pago (extensión opcional), y solo en caso de decidir implementarla, permanecen pendientes:
 
 - Quién inicia el pago y desde qué pantalla o flujo.
 - Si la Venta se crea antes del intento de pago o como resultado de una operación de pago.
 - En qué momento exacto se considera confirmado el pago.
-- Estados definitivos de `Pago` y transiciones permitidas.
+- Estados definitivos de `Pago` externo y transiciones permitidas.
 - Qué ocurre ante pago rechazado, cancelado, abandonado o fallido.
 - Si se permiten reintentos y bajo qué condiciones.
 - Uso de webhook, consulta directa al proveedor o combinación de ambos para confirmar el resultado.
 - Datos exactos de Mercado Pago que deberán persistirse y cuáles solo se consultarán externamente.
-- Duración y condiciones de una eventual reserva de stock en v2.1.
+
+Respecto de una eventual reserva de stock (evolución futura):
+
+- Duración y condiciones de una reserva.
+
+Respecto del dominio en general:
+
 - El valor de "X días" que determina el vencimiento de un presupuesto (parámetro de `fechaVencimiento`).
 
 Estas decisiones **no deben ser inventadas** al redactar el BRD/FRD. Deben quedar como pendientes hasta que se definan explícitamente.
 
 ---
 
-## 15. Restricciones y dependencias relevantes
+## 15. Extensiones opcionales — propuestas de ampliación
+
+> Las siguientes extensiones no forman parte de los requisitos obligatorios del proyecto. Su implementación es opcional y su ausencia no implica incumplimiento del alcance definido. Representan ampliaciones futuras que pueden incorporarse una vez completado el núcleo funcional, incrementando progresivamente la complejidad funcional y técnica del sistema. Se ordenan por dificultad relativa al proyecto completo; no constituyen especificaciones funcionales completas.
+
+### Extensión 1 — Kardex / historial de movimientos de stock
+
+- **Objetivo / problema que resuelve:** dotar de trazabilidad al stock, registrando por qué y cuándo se produjo cada variación de existencias.
+- **Principales funcionalidades:** registro de movimientos de stock con producto, tipo de movimiento (entrada/salida), cantidad, motivo/origen y fecha; consulta del historial por producto.
+- **Impacto sobre el modelo de datos:** incorpora una entidad de movimientos de stock derivada automáticamente de operaciones ya existentes, sin rediseñar el núcleo.
+- **Módulos afectados:** Stock (Producto), Compras, Ventas, Armados.
+- **Dependencias:** se apoya sobre las operaciones de compra, venta y armado ya implementadas en el MVP.
+- **Principales desafíos:** registrar cada movimiento de forma transaccional junto a la operación que lo origina, sin duplicar información ni romper la coherencia del stock.
+- **Por qué amplía el sistema:** agrega una capa de auditoría/historial de bajo costo que demuestra la capacidad de evolución del modelo, sin introducir reglas de negocio complejas.
+
+### Extensión 2 — Garantías y devoluciones
+
+- **Objetivo / problema que resuelve:** gestionar la postventa, dando soporte a devoluciones y su efecto sobre el inventario.
+- **Principales funcionalidades:** registro de una devolución asociada a una venta, con motivo, estado y resolución; reincorporación condicional del producto al stock según corresponda.
+- **Impacto sobre el modelo de datos:** incorpora una entidad de devolución/garantía y nuevas reglas que vinculan venta y stock.
+- **Módulos afectados:** Ventas, Stock, Clientes.
+- **Dependencias:** requiere que la operación de venta y su detalle histórico estén implementados.
+- **Principales desafíos:** definir una máquina de estados de devolución y una regla condicional de reincorporación de stock (apto para reventa vs. baja).
+- **Por qué amplía el sistema:** extiende el sistema hacia la postventa, una dimensión real del negocio, con reglas no triviales sobre stock.
+
+### Extensión 3 — Envíos y logística
+
+- **Objetivo / problema que resuelve:** cubrir la entrega de las ventas una vez concretadas, un aspecto ausente del núcleo.
+- **Principales funcionalidades:** gestión de envíos asociados a una venta, estados del envío, datos básicos de entrega, asignación y seguimiento básico. Eventualmente, puntos/nodos de distribución o entrega como posible incorporación dentro de esta extensión.
+- **Impacto sobre el modelo de datos:** incorpora entidades y estados propios del dominio de entrega, ajeno al núcleo de ventas.
+- **Módulos afectados:** Ventas (nuevo módulo de Envíos).
+- **Dependencias:** requiere que la operación de venta esté implementada; funciona como una capa posterior a la venta.
+- **Principales desafíos:** modelar un ciclo de vida de envío y, en su caso, una asignación básica, sin convertirse en una plataforma logística completa.
+- **Por qué amplía el sistema:** incorpora un dominio nuevo (logística) con su propia complejidad, sin que exista un diseño previo de nodos o distribución en el proyecto.
+
+### Extensión 4 — Integración con Mercado Pago
+
+- **Objetivo / problema que resuelve:** cerrar el cobro de las ventas mediante un proveedor de pagos externo en lugar del pago simulado interno.
+- **Principales funcionalidades:** creación/inicio de una operación de pago; comunicación con Mercado Pago; recepción y confirmación del resultado; tratamiento de estados de pago; asociación del resultado con la `Venta`; eventual uso de webhook y/o consulta al proveedor; manejo de pagos rechazados o fallidos; persistencia de identificadores externos cuando corresponda.
+- **Impacto sobre el modelo de datos:** amplía la entidad `Pago` con información del proveedor externo, sin rediseñar la `Venta`.
+- **Módulos afectados:** Pagos, Ventas (y Stock, en caso de incorporarse reservas en el futuro).
+- **Dependencias:** se apoya sobre el modelo Venta → Pago ya definido en el MVP.
+- **Principales desafíos:** integración con un servicio externo, consistencia entre Venta, Pago y Stock, y comunicación asincrónica (webhooks).
+- **Por qué amplía el sistema:** representa la mayor complejidad técnica al sumar integración externa y estados de transacción; distingue claramente el pago simulado (MVP) del pago real (extensión).
+
+> El flujo técnico definitivo de cada extensión — en particular de la integración con Mercado Pago — se decide únicamente si la extensión se implementa. En el alcance actual no se especifican estados, endpoints ni decisiones de diseño definitivas para estas ampliaciones.
+
+---
+
+## 16. Restricciones y dependencias relevantes
 
 - El cliente **no** es usuario del sistema: no hay portal de autogestión ni carrito de compras propio.
 - El stock es un atributo de Producto y se modifica como efecto secundario de compras, ventas y armados; no se contempla un rol o módulo de stock separado.
 - Las operaciones de stock (incremento por compra, decremento por venta, reversión por cancelación) deben ejecutarse de forma consistente y transaccional.
 - Los productos, clientes, proveedores y usuarios con movimientos asociados se dan de baja de forma lógica (soft delete), no se eliminan físicamente.
 - `Armado` y `Presupuesto` son los principales elementos diferenciadores del sistema.
-- Mercado Pago, reserva de stock, garantías/devoluciones, kardex y Marca como entidad son funcionalidades futuras y no forman parte del MVP v1.0.
+- El pago simulado forma parte del MVP; la integración con Mercado Pago es una extensión opcional.
+- Mercado Pago, reserva de stock, garantías/devoluciones, kardex, envíos/logística y Marca como entidad son ampliaciones opcionales o evoluciones del sistema y no forman parte del MVP v1.0.
 - El proyecto será desarrollado individualmente y debe mantenerse dentro de un alcance académico razonable.
 
 ---
 
-## 16. Decisiones importantes que afectan el funcionamiento del sistema
+## 17. Decisiones importantes que afectan el funcionamiento del sistema
 
 1. **Armado autónomo:** la configuración de una PC es una entidad independiente que puede existir antes de asociarse a un presupuesto, y se asocia opcionalmente a un presupuesto solo cuando alcanza el estado `FINALIZADO`.
 2. **Sin duplicación de componentes:** los componentes de un armado se registran una única vez en el armado; no se replican en el detalle del presupuesto.
@@ -508,25 +608,24 @@ Estas decisiones **no deben ser inventadas** al redactar el BRD/FRD. Deben queda
 4. **Historial de precios:** los detalles de compra, presupuesto, venta y armado conservan `precioUnitario` al momento de la operación.
 5. **Valores derivados:** `subtotal` y `total` se obtienen a partir de los detalles y los precios históricos, en lugar de tratarse como datos persistidos necesarios.
 6. **Comportamiento de stock por estado:** las compras incrementan stock solo al confirmarse; las ventas decrementan al completarse y revierten al cancelarse.
+7. **Pago simulado (MVP):** el cobro de una venta se registra internamente mediante un medio de pago simulado, separado conceptualmente de la operación de venta y sin servicios externos. El pago no reserva stock.
 
 ---
 
-## 17. Propuesta final
+## 18. Propuesta final
 
-El sistema tendrá como núcleo un conjunto de módulos obligatorios de gestión (productos/categorías, clientes, proveedores, compras, ventas y usuarios) más los dos diferenciadores de dominio (presupuestos y armado de PCs). Sobre ese núcleo se deja preparado el camino para incorporar pagos online sin convertir la primera versión en un proyecto desproporcionado.
+El sistema tendrá como núcleo un conjunto de módulos obligatorios de gestión (productos/categorías, clientes, proveedores, compras, ventas, usuarios y pago simulado) más los dos diferenciadores de dominio (presupuestos y armado de PCs). Sobre ese núcleo completo y autosuficiente se describen ampliaciones opcionales que pueden incorporarse posteriormente.
 
 El flujo central de la versión MVP será:
 
-**Cliente → selección de componentes → armado de PC → presupuesto → conversión a venta → verificación de stock → descuento de stock.**
+**Cliente → selección de componentes → armado de PC → presupuesto → conversión a venta → verificación de stock → descuento de stock → pago simulado.**
 
-En una evolución posterior, el flujo podrá extenderse conceptualmente a:
-
-**Venta → Pago → Stock**, incorporando Mercado Pago en v2.0 y, si el tiempo y la complejidad lo permiten, reserva de stock asociada al pago en v2.1.
+El pago simulado cierra el flujo comercial sin depender de un proveedor externo. La integración con Mercado Pago, los envíos/logística y las demás ampliaciones son extensiones opcionales que no condicionan la completitud del núcleo.
 
 Esta propuesta prioriza:
 1. **Terminabilidad:** v1.0 concentra el trabajo obligatorio y evita que las integraciones externas comprometan la entrega.
-2. **Complejidad suficiente:** relaciones N:M, entidades de detalle, máquinas de estados, validaciones de negocio e integración futura con servicios externos.
+2. **Complejidad suficiente:** relaciones N:M, entidades de detalle, máquinas de estados, validaciones de negocio y un flujo de pago cerrado internamente.
 3. **Identidad del dominio:** el armado de PCs y los presupuestos no son CRUD genéricos de stock.
-4. **Evolución controlada:** el modelo permite agregar Pago, reservas y otros módulos sin rediseñar el núcleo.
-5. **Trazabilidad:** cada requerimiento puede vincularse con una versión, módulo y estado.
-6. **Viabilidad académica:** el objetivo principal continúa siendo un MVP completo y defendible desarrollado individualmente en aproximadamente 11 semanas.
+4. **Ampliación controlada:** el modelo permite agregar Mercado Pago, envíos, kardex, garantías y otros módulos sin rediseñar el núcleo.
+5. **Trazabilidad:** cada requerimiento puede vincularse con una etapa, módulo y estado.
+6. **Viabilidad académica:** el objetivo principal continúa siendo un MVP completo y defendible desarrollado individualmente en aproximadamente 11 semanas, con ampliaciones opcionales que demuestran escalabilidad sin ser requisitos incumplidos.

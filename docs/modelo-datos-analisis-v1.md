@@ -1,3 +1,5 @@
+<!-- Nota: ajustado según el BRD v1.1 (docs/brd.md), fuente de verdad del proyecto. Se incorporó la RN-ARM-02 ("El sistema deberá advertir posibles incompatibilidades entre componentes, sin impedir su selección o venta"), que este documento omitía al contemplar solo validaciones básicas de composición. -->
+
 # Modelo de Datos — Análisis del DER
 
 ## 1. Contexto del proyecto
@@ -70,10 +72,13 @@ El MVP contempla principalmente:
 - Gestión de ventas.
 - Gestión de presupuestos.
 - Armado/configuración de PCs.
+- Gestión de pagos (simulados) asociados a las ventas.
 
 El proceso diferencial del sistema consiste en permitir que un vendedor configure una PC utilizando productos disponibles, genere un presupuesto para un cliente y, si este es aceptado, pueda convertirse en una venta.
 
 El sistema deberá controlar el stock durante las operaciones que correspondan.
+
+El cierre comercial del flujo se concreta mediante un **pago simulado**: el sistema registra internamente el cobro de una venta sin interactuar con un proveedor de pagos externo. La incorporación de un proveedor de pagos real (Mercado Pago) se contempla como una **extensión opcional** y no forma parte del alcance base.
 
 ---
 
@@ -423,7 +428,7 @@ Un armado está compuesto por productos.
 
 Los productos utilizados en un armado deben pertenecer a categorías determinadas como obligatorias para una configuración básica.
 
-El sistema realizará validaciones básicas de composición, pero no se contempla inicialmente un sistema avanzado de compatibilidad de hardware.
+El sistema realizará validaciones básicas de composición, pero no se contempla inicialmente un sistema avanzado de compatibilidad de hardware. El sistema deberá advertir posibles incompatibilidades entre componentes, sin impedir su selección o venta (RN-ARM-02 del BRD; advertencia informativa y no bloqueante).
 
 ---
 
@@ -452,17 +457,20 @@ Por lo tanto, existe una relación N:M entre Armado y Producto que requiere una 
 
 # 10. Pago
 
-## 10.1 Estado dentro del proyecto
+## 10.1 Separación conceptual
 
-**POST-MVP / PLANIFICADO**
+El concepto de `Pago` se debe distinguir en dos niveles que no pertenecen al mismo alcance:
 
-La integración con Mercado Pago no forma parte del MVP actual.
+- **Pago simulado — alcance base / MVP.** Registro interno del cobro de una venta, sin interactuar con ningún servicio externo. Permite cerrar el flujo comercial.
+- **Integración con Mercado Pago — extensión opcional.** Evolución futura del concepto de Pago hacia la comunicación con un proveedor de pagos real. No forma parte del MVP.
 
-Se prevé que posteriormente el sistema pueda incorporar pagos online.
+Ambos niveles mantienen la misma idea de fondo: una `Venta` representa la operación comercial y un `Pago` representa el intento/resultado de cobrarla. La diferencia está en el alcance (simulado vs. externo), no en un cambio del modelo de dominio.
 
-Por este motivo, se contempla conceptualmente una entidad `Pago`, pero no se deberán cerrar todavía todos sus atributos ni su flujo de negocio.
+## 10.2 Pago simulado (MVP)
 
-### Posibles atributos futuros
+El pago simulado forma parte del alcance base.
+
+### Posibles atributos
 
 - id
 - ventaId
@@ -470,11 +478,60 @@ Por este motivo, se contempla conceptualmente una entidad `Pago`, pero no se deb
 - estado
 - monto
 - fecha
-- identificadorExterno
 - createdAt
 - updatedAt
 
-Estos atributos son únicamente una propuesta inicial y deberán revisarse cuando se defina el flujo de integración con Mercado Pago.
+### Consideraciones
+
+Un pago pertenece a una venta.
+
+El `medioPago` representa un medio interno/simulado de cobro (por ejemplo: efectivo, transferencia o tarjeta simulados). No implica comunicación con un proveedor externo.
+
+El `estado` registra el resultado del intento de cobro.
+
+El `monto` corresponde al importe abonado en la operación de cobro.
+
+El pago simulado **no** reserva stock: el descuento de stock continúa perteneciendo a la operación de venta, no al pago.
+
+Los atributos relacionados con un proveedor externo (como un identificador de operación provisto por Mercado Pago) **no** son necesarios en este nivel.
+
+## 10.3 Integración con Mercado Pago (extensión opcional)
+
+La integración con un proveedor de pagos real constituye una **extensión opcional** del sistema, que amplía el concepto de `Pago` sin reemplazar el núcleo de ventas.
+
+En ese escenario, la entidad `Pago` evolucionaría para contemplar información adicional y un flujo de comunicación con un servicio externo. A nivel conceptual puede implicar:
+
+- creación/inicio de una operación de pago;
+- comunicación con el proveedor (Mercado Pago);
+- recepción y confirmación del resultado del pago;
+- tratamiento de los estados del pago;
+- eventual utilización de webhooks u otro mecanismo de confirmación;
+- asociación del resultado con la `Venta` correspondiente;
+- persistencia de identificadores externos cuando corresponda.
+
+Los atributos específicos del proveedor (por ejemplo `identificadorExterno` y otros datos de la operación externa) y el flujo técnico definitivo se definirán únicamente si esta extensión llega a implementarse. En el alcance base no se cierran.
+
+## 10.4 Relación con la Venta
+
+La separación conceptual debe quedar clara:
+
+```text
+Venta
+  ↓
+Pago simulado (MVP)
+```
+
+y, si se implementa la extensión:
+
+```text
+Venta
+  ↓
+Pago
+  ↓
+Mercado Pago real
+```
+
+El modelo del MVP no obliga a implementar la integración con Mercado Pago.
 
 ---
 
@@ -669,6 +726,20 @@ utilizando `presupuestoId` en Venta, pero esto debe ser validado.
 
 ---
 
+## Venta y Pago
+
+Existe una relación conceptual entre una venta y el pago (simulado) que la cobra:
+
+```text
+Venta 1 ───── 0..1 Pago
+```
+
+Cada pago pertenece a una venta.
+
+La cardinalidad exacta (un único pago por venta o la posibilidad de múltiples intentos de cobro por venta) queda sujeta a validación durante el análisis del flujo de pago. La separación conceptual Venta ↔ Pago se mantiene en todos los casos: la venta es la operación comercial y el pago es el registro del cobro.
+
+---
+
 ## Armado y Presupuesto
 
 Puede existir una relación entre el armado de una PC y el presupuesto generado a partir de dicho armado.
@@ -712,6 +783,7 @@ El modelo de datos deberá ser compatible, como mínimo, con las siguientes regl
 - La creación de un presupuesto debe contemplar una validación de stock.
 - La confirmación de la venta debe volver a validar el stock.
 - La reserva de stock no forma parte del MVP.
+- El pago simulado no reserva stock: el descuento continúa asociado exclusivamente a la operación de venta.
 
 ### Presupuestos
 
@@ -729,6 +801,7 @@ El modelo de datos deberá ser compatible, como mínimo, con las siguientes regl
 - Deben existir determinadas categorías obligatorias para una configuración básica.
 - El sistema realizará validaciones básicas.
 - No se implementará inicialmente compatibilidad avanzada entre componentes.
+- El sistema deberá advertir posibles incompatibilidades entre componentes, sin impedir su selección o venta (RN-ARM-02 del BRD).
 
 ### Productos
 
@@ -854,11 +927,17 @@ Debe determinarse si un armado:
 
 ### 16.5 Pago
 
-Mercado Pago es una funcionalidad post-MVP.
+El pago simulado forma parte del MVP. Para su alcance base quedan resueltos en nivel conceptual:
 
-No se deben definir todavía como definitivos:
+- la existencia de una operación de cobro asociada a una venta;
+- la utilización de un medio de pago interno/simulado;
+- el registro del estado/resultado del cobro y del monto;
+- la ausencia de reserva de stock en el pago simulado.
 
-- estados del pago;
+La integración con Mercado Pago es una extensión opcional. No se deben definir todavía como definitivos, hasta decidir si esa extensión se implementa:
+
+- estados del pago externo;
+- quién inicia el pago;
 - momento de creación del pago;
 - momento de creación de la venta;
 - comportamiento ante pagos rechazados;
@@ -866,13 +945,15 @@ No se deben definir todavía como definitivos:
 - reintentos;
 - webhook o consulta directa;
 - identificadores externos definitivos;
-- relación exacta entre Pago y Venta.
+- relación exacta entre Pago y Venta (cardinalidad definitiva).
 
 ### 16.6 Reserva de stock
 
-La reserva de stock es una funcionalidad futura.
+La reserva de stock es una posible evolución futura, no incluida entre las extensiones principales del proyecto.
 
 No forma parte del modelo MVP actual.
+
+Si llega a contemplarse, implicaría distinguir stock total, reservado y disponible, así como definir expiración y liberación de reservas. Estas decisiones permanecen pendientes.
 
 ---
 
@@ -914,12 +995,12 @@ El análisis deberá respetar las siguientes restricciones:
 - No agregar funcionalidades comerciales que no estén contempladas en el alcance.
 - No convertir el proyecto en un e-commerce público.
 - No incorporar múltiples sucursales.
-- No incorporar envíos.
+- No incorporar envíos al MVP.
 - No incorporar AFIP.
 - No incorporar catálogos externos de proveedores.
 - No implementar compatibilidad avanzada de hardware.
 - No incorporar reserva de stock al MVP.
-- No incorporar Mercado Pago como funcionalidad del MVP.
+- No incorporar Mercado Pago como funcionalidad del MVP (su integración es una extensión opcional).
 - No crear una entidad diferente para cada tipo de componente informático.
 - No agregar entidades solamente por seguir patrones arquitectónicos innecesarios.
 
@@ -994,7 +1075,22 @@ Finalmente, indicar cómo debería traducirse conceptualmente el modelo validado
 
 ---
 
-# 20. Flujo de trabajo posterior
+# 20. Extensiones opcionales del sistema
+
+Este documento mantiene su alcance en el análisis del MVP. Las siguientes ampliaciones se presentan únicamente a nivel conceptual para demostrar la capacidad de evolución del modelo, sin constituir un diseño técnico definitivo. No forman parte de los requisitos obligatorios del MVP.
+
+Se ordenan por dificultad relativa al proyecto completo:
+
+1. **Kardex / historial de movimientos de stock (dificultad baja).** Implicaría registrar movimientos de stock a partir de las operaciones de compra, venta y armado ya existentes, con origen/motivo, fecha, producto y cantidad.
+2. **Garantías y devoluciones (dificultad media).** Implicaría ampliar el modelo con una entidad de postventa asociada a la venta, con estados y efecto condicional sobre el stock.
+3. **Envíos y logística (dificultad media/alta).** Implicaría incorporar entidades y estados propios de la entrega de ventas, así como una posible estructura de puntos de entrega. No existe un diseño previo de nodos o distribución en el proyecto.
+4. **Integración con Mercado Pago (dificultad alta).** Implicaría evolucionar la entidad `Pago` hacia la comunicación con un proveedor externo, tal como se describe en la sección 10.3.
+
+La reserva de stock, mencionada en la sección 16.6, puede entenderse como una evolución futura adicional sin competir con las cuatro extensiones principales enumeradas.
+
+---
+
+# 21. Flujo de trabajo posterior
 
 Una vez validado este análisis, el desarrollo del modelo seguirá aproximadamente este flujo:
 
