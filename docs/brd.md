@@ -1,7 +1,7 @@
 # Documentación de Requerimientos de Negocio
 
-**Versión:** 1.1
-**Fecha:** 15/09/2026
+**Versión:** 1.1.1
+**Fecha:** 29/09/2026
 **Autor:** Arias, Facundo Roberto
 **Release:** Septiembre 2026
 **Estado:** Propuesta para revisión
@@ -15,6 +15,7 @@
 | Versión | Fecha | Autor | Descripción |
 | --- | --- | --- | --- |
 | v1.0 | 15/09/2026 | Arias, Facundo | Primera versión consolidada del BRD. Define el MVP obligatorio y mantiene las ampliaciones como extensiones opcionales. |
+| v1.1.1 | 29/09/2026 | Arias, Facundo | El Vendedor también consulta el catálogo (productos y categorías) en solo-lectura, para armar las ventas. Cambio marcado en RN-USR-03. |
 
 ---
 
@@ -149,7 +150,7 @@ Las extensiones son **opcionales** y su ausencia no implica incumplimiento del a
 | Pagos | **RN-PAG-04** | Mercado Pago es una extensión opcional y no debe alterar el núcleo de Venta/Stock. |
 | Usuarios | **RN-USR-01** | Existen dos roles: Administrador y Vendedor. |
 | Usuarios | **RN-USR-02** | El Administrador gestiona catálogo, proveedores, compras, usuarios y dashboard y puede realizar tareas del Vendedor. |
-| Usuarios | **RN-USR-03** | El Vendedor gestiona clientes, presupuestos, armados, conversiones y ventas. |
+| Usuarios | **RN-USR-03** | El Vendedor gestiona clientes, presupuestos, armados, conversiones y ventas. **(v1.1.1)** El Vendedor también consulta el catálogo (productos y categorías) en modo solo-lectura, para armar las ventas; la gestión del catálogo (alta/edición/baja) sigue siendo del Administrador. |
 | Usuarios | **RN-USR-04** | El cliente no es usuario del sistema y no existe un rol independiente de stock. |
 
 #### Reglas pendientes de definición

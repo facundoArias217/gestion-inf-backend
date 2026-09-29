@@ -1,0 +1,17 @@
+{
+  "id": "0f1e2d3c-4b5a-6978-8796-a5b4c3d2e1f0",
+  "name": "Local",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001",
+      "enabled": true
+    },
+    {
+      "key": "token",
+      "value": "",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}

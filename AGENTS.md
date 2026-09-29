@@ -7,7 +7,7 @@ Sistema de gestión interna para una tienda de productos informáticos (catálog
 ## Stack
 
 - **Node.js + Express 5** (CommonJS), **Sequelize 6 + PostgreSQL** (transaccional), **Joi** para validación.
-- Dev: `npm run dev` (nodemon sobre `src/index.js`). Pendiente instalar: `pg`, `jsonwebtoken`, `bcrypt`.
+- Dev: `npm run dev` (nodemon sobre `src/index.js`). Base de datos dev: `docker compose up -d` (Postgres 16 aislado en puerto 5433, contenedor `gestion-inf-db`); migraciones y seeds con `npx sequelize-cli db:migrate` / `db:seed:all`. El server corre en el **puerto 3001** (el 3000 lo ocupa otro proyecto).
 
 ## Estructura
 
@@ -39,4 +39,4 @@ src/
 - **Respetar las capas:** Routes → (validators) → Controllers → Services → Models. Los controllers no contienen lógica de negocio; los Services concentran reglas y transacciones; los Models solo encapsulan acceso a datos (Sequelize).
 - **No crear carpetas/capas nuevas sin justificación** (regla documentada en `docs/decisiones-arquitectura-v1.md` §6).
 - **Reglas de negocio no negociables** (`docs/brd.md`): stock consistente y transaccional; compra PENDIENTE no modifica stock, solo pasa a COMPLETADA; venta se crea COMPLETADA y descuenta stock; presupuestos con vencimiento y conversión única; armado solo FINALIZADO se asocia a presupuesto, con advertencia (no bloqueo) de incompatibilidades; pago simulado obligatorio que no toca stock; bajas lógicas (no físicas) para registros con historial.
-- Trabajar sobre la rama `estructura-carpetas` (o la vigente); no commitear secretos.
+- Ramas feature (`be/<modulo>`) con merge directo a `dev`, y luego `dev` a `main` (sin PRs). Base actual del prototipo: `prototipo-front`.

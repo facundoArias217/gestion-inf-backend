@@ -1,3 +1,5 @@
 const sequelize = require('../sequelize');
 
-module.exports = { sequelize };
+const Usuario = require('./usuario.model');
+
+module.exports = { sequelize, Usuario };
