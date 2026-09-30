@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const env = require('../config/env');
 const { Usuario } = require('../database/models');
+const { serializarUsuario } = require('../serializers/usuario.serializer');
 
 function generarToken(usuario) {
   return jwt.sign(
@@ -10,12 +11,6 @@ function generarToken(usuario) {
     env.jwtSecret,
     { expiresIn: env.jwtExpiresIn },
   );
-}
-
-function sinPasswordHash(usuario) {
-  const copia = usuario.toJSON();
-  delete copia.passwordHash;
-  return copia;
 }
 
 async function login({ email, password }) {
@@ -29,7 +24,7 @@ async function login({ email, password }) {
     throw error;
   }
 
-  return { token: generarToken(usuario), usuario: sinPasswordHash(usuario) };
+  return { token: generarToken(usuario), usuario: serializarUsuario(usuario) };
 }
 
 async function me(usuarioId) {
@@ -41,7 +36,7 @@ async function me(usuarioId) {
     throw error;
   }
 
-  return sinPasswordHash(usuario);
+  return serializarUsuario(usuario);
 }
 
 module.exports = { login, me };
