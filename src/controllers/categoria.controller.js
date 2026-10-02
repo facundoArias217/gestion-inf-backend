@@ -42,15 +42,4 @@ async function cambiarEstado(req, res, next) {
   }
 }
 
-async function eliminar(req, res, next) {
-  try {
-    await categoriaService.eliminar(req.params.id);
-    return res
-      .status(200)
-      .json({ message: 'Categoría eliminada definitivamente', data: null });
-  } catch (error) {
-    return next(error);
-  }
-}
-
-module.exports = { listar, crear, actualizar, cambiarEstado, eliminar };
+module.exports = { listar, crear, actualizar, cambiarEstado };

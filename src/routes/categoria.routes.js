@@ -29,6 +29,5 @@ router.patch(
   validarEstadoCategoria,
   controller.cambiarEstado,
 );
-router.delete('/:id', autorizar('ADMIN'), validarId, controller.eliminar);
 
 module.exports = router;

@@ -71,21 +71,4 @@ async function cambiarEstado(id, { activo }) {
   return { categoria: serializarCategoria(categoria), activo };
 }
 
-async function eliminar(id) {
-  const categoria = await Categoria.findByPk(id);
-
-  if (!categoria) {
-    throw errorDeNegocio('Categoría no encontrada', 404);
-  }
-
-  if (categoria.activo) {
-    throw errorDeNegocio(
-      'La categoría debe estar inactiva antes de eliminarla definitivamente',
-      409,
-    );
-  }
-
-  await categoria.destroy();
-}
-
-module.exports = { listar, crear, actualizar, cambiarEstado, eliminar };
+module.exports = { listar, crear, actualizar, cambiarEstado };
