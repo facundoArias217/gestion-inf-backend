@@ -251,6 +251,586 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Categorías",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/categorias",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categorias"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Listado exitoso",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/categorias",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categorias"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Categorías obtenidas\",\n  \"data\": [\n    {\n      \"id\": 5,\n      \"nombre\": \"Almacenamiento\",\n      \"descripcion\": \"Discos SSD, HDD y NVMe\",\n      \"activo\": true,\n      \"createdAt\": \"2026-09-30T20:00:00.000Z\",\n      \"updatedAt\": \"2026-09-30T20:00:00.000Z\"\n    },\n    {\n      \"id\": 6,\n      \"nombre\": \"Fuente\",\n      \"descripcion\": \"Fuentes de alimentación ATX\",\n      \"activo\": true,\n      \"createdAt\": \"2026-09-30T20:00:00.000Z\",\n      \"updatedAt\": \"2026-09-30T20:00:00.000Z\"\n    },\n    {\n      \"id\": 9,\n      \"nombre\": \"Refrigeración\",\n      \"descripcion\": \"Coolers de aire y watercooling\",\n      \"activo\": false,\n      \"createdAt\": \"2026-09-30T20:00:00.000Z\",\n      \"updatedAt\": \"2026-09-30T20:00:00.000Z\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Sin token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/categorias",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categorias"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Token no proporcionado\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Crear",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Monitores\",\n  \"descripcion\": \"Monitores y pantallas\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/categorias",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categorias"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Creada",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Monitores\",\n  \"descripcion\": \"Monitores y pantallas\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categorias",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categorias"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Categoría creada\",\n  \"data\": {\n    \"id\": 11,\n    \"nombre\": \"Monitores\",\n    \"descripcion\": \"Monitores y pantallas\",\n    \"activo\": true,\n    \"createdAt\": \"2026-09-30T21:00:00.000Z\",\n    \"updatedAt\": \"2026-09-30T21:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Datos inválidos",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"descripcion\": \"Sin nombre\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categorias",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categorias"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"nombre\\\" is required\"\n  ]\n}"
+            },
+            {
+              "name": "Sin permisos (Vendedor)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Monitores\",\n  \"descripcion\": \"Monitores y pantallas\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categorias",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categorias"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"No tenés permisos para realizar esta operación\"\n}"
+            },
+            {
+              "name": "Nombre duplicado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Procesador\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categorias",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categorias"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Ya existe una categoría con ese nombre\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Actualizar",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Placa de video\",\n  \"descripcion\": \"GPUs dedicadas para gaming, diseño y trabajo\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/categorias/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categorias",
+                ":id"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Actualizada",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Placa de video\",\n  \"descripcion\": \"GPUs dedicadas para gaming, diseño y trabajo\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categorias/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categorias",
+                    ":id"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Categoría actualizada\",\n  \"data\": {\n    \"id\": 4,\n    \"nombre\": \"Placa de video\",\n    \"descripcion\": \"GPUs dedicadas para gaming, diseño y trabajo\",\n    \"activo\": true,\n    \"createdAt\": \"2026-09-30T20:00:00.000Z\",\n    \"updatedAt\": \"2026-09-30T21:30:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "No encontrada",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Placa de video\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categorias/999",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categorias",
+                    "999"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Categoría no encontrada\"\n}"
+            },
+            {
+              "name": "Datos inválidos",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categorias/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categorias",
+                    ":id"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"nombre\\\" is not allowed to be empty\"\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Cambiar estado",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activo\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/categorias/:id/estado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categorias",
+                ":id",
+                "estado"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Desactivada",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activo\": false\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categorias/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categorias",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Categoría desactivada\",\n  \"data\": {\n    \"id\": 9,\n    \"nombre\": \"Refrigeración\",\n    \"descripcion\": \"Coolers de aire y watercooling\",\n    \"activo\": false,\n    \"createdAt\": \"2026-09-30T20:00:00.000Z\",\n    \"updatedAt\": \"2026-09-30T22:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Reactivada",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activo\": true\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categorias/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categorias",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Categoría reactivada\",\n  \"data\": {\n    \"id\": 9,\n    \"nombre\": \"Refrigeración\",\n    \"descripcion\": \"Coolers de aire y watercooling\",\n    \"activo\": true,\n    \"createdAt\": \"2026-09-30T20:00:00.000Z\",\n    \"updatedAt\": \"2026-09-30T22:30:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Datos inválidos",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activo\": \"si\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categorias/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categorias",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"activo\\\" must be a boolean\"\n  ]\n}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
