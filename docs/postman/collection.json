@@ -831,6 +831,632 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Productos",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/productos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "productos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Listado exitoso",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/productos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Productos obtenidos\",\n  \"data\": [\n    {\n      \"id\": 1,\n      \"nombre\": \"AMD Ryzen 5 7600\",\n      \"marca\": \"AMD\",\n      \"descripcion\": \"Procesador 6 núcleos / 12 hilos con disipador Wraith Stealth\",\n      \"precio\": 305000,\n      \"stock\": 8,\n      \"categoriaId\": 1,\n      \"activo\": true,\n      \"createdAt\": \"2026-08-05T10:00:00.000Z\",\n      \"updatedAt\": \"2026-08-05T10:00:00.000Z\"\n    },\n    {\n      \"id\": 2,\n      \"nombre\": \"Intel Core i5-13400F\",\n      \"marca\": \"Intel\",\n      \"descripcion\": \"Procesador 6 núcleos / 12 hilos con disipador Wraith Stealth\",\n      \"precio\": 285000,\n      \"stock\": 5,\n      \"categoriaId\": 1,\n      \"activo\": true,\n      \"createdAt\": \"2026-08-05T10:00:00.000Z\",\n      \"updatedAt\": \"2026-08-05T10:00:00.000Z\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Sin token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/productos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Token no proporcionado\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Crear",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Kingston Fury Beast 8GB DDR4\",\n  \"marca\": \"Kingston\",\n  \"descripcion\": \"Módulo 8GB 3200MHz CL16\",\n  \"precio\": 38000,\n  \"stock\": 10,\n  \"categoriaId\": 3\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/productos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "productos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Creado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Kingston Fury Beast 8GB DDR4\",\n  \"marca\": \"Kingston\",\n  \"descripcion\": \"Módulo 8GB 3200MHz CL16\",\n  \"precio\": 38000,\n  \"stock\": 10,\n  \"categoriaId\": 3\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/productos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Producto creado\",\n  \"data\": {\n    \"nombre\": \"Kingston Fury Beast 8GB DDR4\",\n    \"marca\": \"Kingston\",\n    \"descripcion\": \"Módulo 8GB 3200MHz CL16\",\n    \"precio\": 38000,\n    \"stock\": 10,\n    \"categoriaId\": 3,\n    \"id\": 39,\n    \"activo\": true,\n    \"createdAt\": \"2026-10-02T21:00:00.000Z\",\n    \"updatedAt\": \"2026-10-02T21:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Datos inválidos",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Kingston Fury Beast 8GB DDR4\",\n  \"marca\": \"Kingston\",\n  \"descripcion\": \"Módulo 8GB 3200MHz CL16\",\n  \"precio\": 38000,\n  \"stock\": 10,\n  \"categoriaId\": 3\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/productos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"precio\\\" must be a positive number\"\n  ]\n}"
+            },
+            {
+              "name": "Categoría inexistente",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Kingston Fury Beast 8GB DDR4\",\n  \"marca\": \"Kingston\",\n  \"descripcion\": \"Módulo 8GB 3200MHz CL16\",\n  \"precio\": 38000,\n  \"stock\": 10,\n  \"categoriaId\": 3\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/productos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"La categoría indicada no existe\"\n}"
+            },
+            {
+              "name": "Sin permisos (Vendedor)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Kingston Fury Beast 8GB DDR4\",\n  \"marca\": \"Kingston\",\n  \"descripcion\": \"Módulo 8GB 3200MHz CL16\",\n  \"precio\": 38000,\n  \"stock\": 10,\n  \"categoriaId\": 3\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/productos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"No tenés permisos para realizar esta operación\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Actualizar",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Kingston Fury Beast 8GB DDR4\",\n  \"marca\": \"Kingston\",\n  \"descripcion\": \"Módulo 8GB 3200MHz CL16\",\n  \"precio\": 38000,\n  \"stock\": 10,\n  \"categoriaId\": 3\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/productos/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "productos",
+                ":id"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Actualizado",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Kingston Fury Beast 8GB DDR4\",\n  \"marca\": \"Kingston\",\n  \"descripcion\": \"Módulo 8GB 3200MHz CL16\",\n  \"precio\": 38000,\n  \"stock\": 10,\n  \"categoriaId\": 3\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/productos/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos",
+                    ":id"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Producto actualizado\",\n  \"data\": {\n    \"id\": 1,\n    \"nombre\": \"AMD Ryzen 5 7600\",\n    \"marca\": \"AMD\",\n    \"descripcion\": \"Procesador 6 núcleos / 12 hilos con disipador Wraith Stealth\",\n    \"precio\": 295000,\n    \"stock\": 9,\n    \"categoriaId\": 1,\n    \"activo\": true,\n    \"createdAt\": \"2026-08-05T10:00:00.000Z\",\n    \"updatedAt\": \"2026-10-02T21:30:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "No encontrado",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Kingston Fury Beast 8GB DDR4\",\n  \"marca\": \"Kingston\",\n  \"descripcion\": \"Módulo 8GB 3200MHz CL16\",\n  \"precio\": 38000,\n  \"stock\": 10,\n  \"categoriaId\": 3\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/productos/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos",
+                    ":id"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Producto no encontrado\"\n}"
+            },
+            {
+              "name": "Datos inválidos",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Kingston Fury Beast 8GB DDR4\",\n  \"marca\": \"Kingston\",\n  \"descripcion\": \"Módulo 8GB 3200MHz CL16\",\n  \"precio\": 38000,\n  \"stock\": 10,\n  \"categoriaId\": 3\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/productos/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos",
+                    ":id"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"stock\\\" must be an integer\"\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Cambiar estado",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activo\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/productos/:id/estado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "productos",
+                ":id",
+                "estado"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Desactivado",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activo\": false\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/productos/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Producto desactivado\",\n  \"data\": {\n    \"id\": 1,\n    \"nombre\": \"AMD Ryzen 5 7600\",\n    \"marca\": \"AMD\",\n    \"descripcion\": \"Procesador 6 núcleos / 12 hilos con disipador Wraith Stealth\",\n    \"precio\": 305000,\n    \"stock\": 8,\n    \"categoriaId\": 1,\n    \"activo\": false,\n    \"createdAt\": \"2026-08-05T10:00:00.000Z\",\n    \"updatedAt\": \"2026-10-02T22:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Reactivado",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activo\": false\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/productos/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Producto reactivado\",\n  \"data\": {\n    \"id\": 1,\n    \"nombre\": \"AMD Ryzen 5 7600\",\n    \"marca\": \"AMD\",\n    \"descripcion\": \"Procesador 6 núcleos / 12 hilos con disipador Wraith Stealth\",\n    \"precio\": 305000,\n    \"stock\": 8,\n    \"categoriaId\": 1,\n    \"activo\": true,\n    \"createdAt\": \"2026-08-05T10:00:00.000Z\",\n    \"updatedAt\": \"2026-10-02T22:30:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "No encontrado",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activo\": false\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/productos/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Producto no encontrado\"\n}"
+            },
+            {
+              "name": "Datos inválidos",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activo\": false\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/productos/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "productos",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"activo\\\" must be a boolean\"\n  ]\n}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
