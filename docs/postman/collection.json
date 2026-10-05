@@ -1457,6 +1457,632 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/clientes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Listado exitoso",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/clientes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Clientes obtenidos\",\n  \"data\": [\n    {\n      \"id\": 1,\n      \"nombre\": \"Gonzalo\",\n      \"apellido\": \"Ríos\",\n      \"cuil\": \"20305678903\",\n      \"email\": \"gonzalo.rios@gmail.com\",\n      \"telefono\": \"11 5555-2020\",\n      \"direccion\": \"Av. Mitre 750, Avellaneda\",\n      \"activo\": true,\n      \"createdAt\": \"2026-08-12T10:00:00.000Z\",\n      \"updatedAt\": \"2026-08-12T10:00:00.000Z\"\n    },\n    {\n      \"id\": 2,\n      \"nombre\": \"María\",\n      \"apellido\": \"Gómez\",\n      \"cuil\": \"27248761232\",\n      \"email\": \"gonzalo.rios@gmail.com\",\n      \"telefono\": \"11 5555-2020\",\n      \"direccion\": \"Av. Mitre 750, Avellaneda\",\n      \"activo\": true,\n      \"createdAt\": \"2026-08-12T10:00:00.000Z\",\n      \"updatedAt\": \"2026-08-12T10:00:00.000Z\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Sin token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/clientes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Token no proporcionado\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Crear",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ramiro\",\n  \"apellido\": \"Ledesma\",\n  \"cuil\": \"20112233440\",\n  \"email\": \"ramiro.ledesma@gmail.com\",\n  \"telefono\": \"11 4999-8787\",\n  \"direccion\": \"Belgrano 340, Banfield\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/clientes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Creado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Ramiro\",\n  \"apellido\": \"Ledesma\",\n  \"cuil\": \"20112233440\",\n  \"email\": \"ramiro.ledesma@gmail.com\",\n  \"telefono\": \"11 4999-8787\",\n  \"direccion\": \"Belgrano 340, Banfield\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/clientes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Cliente creado\",\n  \"data\": {\n    \"nombre\": \"Ramiro\",\n    \"apellido\": \"Ledesma\",\n    \"cuil\": \"20112233440\",\n    \"email\": \"ramiro.ledesma@gmail.com\",\n    \"telefono\": \"11 4999-8787\",\n    \"direccion\": \"Belgrano 340, Banfield\",\n    \"id\": 11,\n    \"activo\": true,\n    \"createdAt\": \"2026-10-04T13:00:00.000Z\",\n    \"updatedAt\": \"2026-10-04T13:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "CUIT/CUIL inválido",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Ramiro\",\n  \"apellido\": \"Ledesma\",\n  \"cuil\": \"20112233440\",\n  \"email\": \"ramiro.ledesma@gmail.com\",\n  \"telefono\": \"11 4999-8787\",\n  \"direccion\": \"Belgrano 340, Banfield\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/clientes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"El CUIT/CUIL es inválido\"\n  ]\n}"
+            },
+            {
+              "name": "CUIT/CUIL duplicado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Ramiro\",\n  \"apellido\": \"Ledesma\",\n  \"cuil\": \"20112233440\",\n  \"email\": \"ramiro.ledesma@gmail.com\",\n  \"telefono\": \"11 4999-8787\",\n  \"direccion\": \"Belgrano 340, Banfield\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/clientes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Ya existe un cliente con ese CUIT/CUIL\"\n}"
+            },
+            {
+              "name": "Datos inválidos",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Ramiro\",\n  \"apellido\": \"Ledesma\",\n  \"cuil\": \"20112233440\",\n  \"email\": \"ramiro.ledesma@gmail.com\",\n  \"telefono\": \"11 4999-8787\",\n  \"direccion\": \"Belgrano 340, Banfield\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/clientes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"email\\\" must be a valid email\"\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Actualizar",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ramiro\",\n  \"apellido\": \"Ledesma\",\n  \"cuil\": \"20112233440\",\n  \"email\": \"ramiro.ledesma@gmail.com\",\n  \"telefono\": \"11 4999-8787\",\n  \"direccion\": \"Belgrano 340, Banfield\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/clientes/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes",
+                ":id"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Actualizado",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Ramiro\",\n  \"apellido\": \"Ledesma\",\n  \"cuil\": \"20112233440\",\n  \"email\": \"ramiro.ledesma@gmail.com\",\n  \"telefono\": \"11 4999-8787\",\n  \"direccion\": \"Belgrano 340, Banfield\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/clientes/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes",
+                    ":id"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Cliente actualizado\",\n  \"data\": {\n    \"id\": 1,\n    \"nombre\": \"Gonzalo\",\n    \"apellido\": \"Ríos\",\n    \"cuil\": \"20305678903\",\n    \"email\": \"gonzalo.rios@gmail.com\",\n    \"telefono\": \"11 4999-8787\",\n    \"direccion\": \"Av. Mitre 750, Avellaneda\",\n    \"activo\": true,\n    \"createdAt\": \"2026-08-12T10:00:00.000Z\",\n    \"updatedAt\": \"2026-10-04T13:30:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "No encontrado",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Ramiro\",\n  \"apellido\": \"Ledesma\",\n  \"cuil\": \"20112233440\",\n  \"email\": \"ramiro.ledesma@gmail.com\",\n  \"telefono\": \"11 4999-8787\",\n  \"direccion\": \"Belgrano 340, Banfield\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/clientes/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes",
+                    ":id"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Cliente no encontrado\"\n}"
+            },
+            {
+              "name": "Datos inválidos",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Ramiro\",\n  \"apellido\": \"Ledesma\",\n  \"cuil\": \"20112233440\",\n  \"email\": \"ramiro.ledesma@gmail.com\",\n  \"telefono\": \"11 4999-8787\",\n  \"direccion\": \"Belgrano 340, Banfield\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/clientes/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes",
+                    ":id"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"nombre\\\" is not allowed to be empty\"\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Cambiar estado",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activo\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/clientes/:id/estado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes",
+                ":id",
+                "estado"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Desactivado",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activo\": false\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/clientes/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Cliente desactivado\",\n  \"data\": {\n    \"id\": 1,\n    \"nombre\": \"Gonzalo\",\n    \"apellido\": \"Ríos\",\n    \"cuil\": \"20305678903\",\n    \"email\": \"gonzalo.rios@gmail.com\",\n    \"telefono\": \"11 5555-2020\",\n    \"direccion\": \"Av. Mitre 750, Avellaneda\",\n    \"activo\": false,\n    \"createdAt\": \"2026-08-12T10:00:00.000Z\",\n    \"updatedAt\": \"2026-10-04T14:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Reactivado",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activo\": false\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/clientes/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Cliente reactivado\",\n  \"data\": {\n    \"id\": 1,\n    \"nombre\": \"Gonzalo\",\n    \"apellido\": \"Ríos\",\n    \"cuil\": \"20305678903\",\n    \"email\": \"gonzalo.rios@gmail.com\",\n    \"telefono\": \"11 5555-2020\",\n    \"direccion\": \"Av. Mitre 750, Avellaneda\",\n    \"activo\": true,\n    \"createdAt\": \"2026-08-12T10:00:00.000Z\",\n    \"updatedAt\": \"2026-10-04T14:30:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "No encontrado",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activo\": false\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/clientes/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Cliente no encontrado\"\n}"
+            },
+            {
+              "name": "Datos inválidos",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activo\": false\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/clientes/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "clientes",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"activo\\\" must be a boolean\"\n  ]\n}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
