@@ -2740,6 +2740,513 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Compras",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/compras",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "compras"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Listado exitoso",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/compras",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "compras"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Compras obtenidas\",\n  \"data\": [\n    {\n      \"id\": 3,\n      \"proveedorId\": 5,\n      \"fecha\": \"2026-10-02\",\n      \"estado\": \"PENDIENTE\",\n      \"detalles\": [\n        {\n          \"id\": 6,\n          \"productoId\": 7,\n          \"cantidad\": 2,\n          \"precioUnitario\": 545000\n        },\n        {\n          \"id\": 7,\n          \"productoId\": 13,\n          \"cantidad\": 3,\n          \"precioUnitario\": 152000\n        }\n      ],\n      \"createdAt\": \"2026-10-02T15:00:00.000Z\",\n      \"updatedAt\": \"2026-10-02T15:00:00.000Z\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Sin token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/compras",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "compras"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Token no proporcionado\"\n}"
+            },
+            {
+              "name": "Sin permisos (Vendedor)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/compras",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "compras"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"No tenés permisos para realizar esta operación\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Crear",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"proveedorId\": 5,\n  \"fecha\": \"2026-10-07\",\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 3,\n      \"precioUnitario\": 258000\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 6,\n      \"precioUnitario\": 56000\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/compras",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "compras"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Registrada (nace PENDIENTE)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"proveedorId\": 5,\n  \"fecha\": \"2026-10-07\",\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 3,\n      \"precioUnitario\": 258000\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 6,\n      \"precioUnitario\": 56000\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/compras",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "compras"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Compra registrada\",\n  \"data\": {\n    \"id\": 9,\n    \"proveedorId\": 5,\n    \"fecha\": \"2026-10-07\",\n    \"estado\": \"PENDIENTE\",\n    \"detalles\": [\n      {\n        \"id\": 1,\n        \"productoId\": 1,\n        \"cantidad\": 3,\n        \"precioUnitario\": 258000\n      },\n      {\n        \"id\": 2,\n        \"productoId\": 5,\n        \"cantidad\": 6,\n        \"precioUnitario\": 56000\n      }\n    ],\n    \"createdAt\": \"2026-10-07T13:00:00.000Z\",\n    \"updatedAt\": \"2026-10-07T13:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Producto inexistente",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"proveedorId\": 5,\n  \"fecha\": \"2026-10-07\",\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 3,\n      \"precioUnitario\": 258000\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 6,\n      \"precioUnitario\": 56000\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/compras",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "compras"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"El producto 999 del detalle no existe\"\n}"
+            },
+            {
+              "name": "Sin detalles",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"proveedorId\": 5,\n  \"fecha\": \"2026-10-07\",\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 3,\n      \"precioUnitario\": 258000\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 6,\n      \"precioUnitario\": 56000\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/compras",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "compras"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"detalles\\\" must contain at least 1 items\"\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Cambiar estado",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": \"COMPLETADA\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/compras/:id/estado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "compras",
+                ":id",
+                "estado"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Confirmada (incrementa stock)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"COMPLETADA\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/compras/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "compras",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Compra confirmada\",\n  \"data\": {\n    \"id\": 3,\n    \"proveedorId\": 5,\n    \"fecha\": \"2026-10-02\",\n    \"estado\": \"COMPLETADA\",\n    \"detalles\": [\n      {\n        \"id\": 6,\n        \"productoId\": 7,\n        \"cantidad\": 2,\n        \"precioUnitario\": 545000\n      },\n      {\n        \"id\": 7,\n        \"productoId\": 13,\n        \"cantidad\": 3,\n        \"precioUnitario\": 152000\n      }\n    ],\n    \"createdAt\": \"2026-10-02T15:00:00.000Z\",\n    \"updatedAt\": \"2026-10-07T14:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Cancelada (no afecta stock)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"COMPLETADA\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/compras/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "compras",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Compra cancelada\",\n  \"data\": {\n    \"id\": 3,\n    \"proveedorId\": 5,\n    \"fecha\": \"2026-10-02\",\n    \"estado\": \"CANCELADA\",\n    \"detalles\": [\n      {\n        \"id\": 6,\n        \"productoId\": 7,\n        \"cantidad\": 2,\n        \"precioUnitario\": 545000\n      },\n      {\n        \"id\": 7,\n        \"productoId\": 13,\n        \"cantidad\": 3,\n        \"precioUnitario\": 152000\n      }\n    ],\n    \"createdAt\": \"2026-10-02T15:00:00.000Z\",\n    \"updatedAt\": \"2026-10-07T14:30:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "No encontrada",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"COMPLETADA\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/compras/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "compras",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Compra no encontrada\"\n}"
+            },
+            {
+              "name": "No está PENDIENTE",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"COMPLETADA\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/compras/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "compras",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Solo se puede confirmar o cancelar una compra PENDIENTE\"\n}"
+            },
+            {
+              "name": "Estado inválido",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"COMPLETADA\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/compras/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "compras",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"estado\\\" must be one of [COMPLETADA, CANCELADA]\"\n  ]\n}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
