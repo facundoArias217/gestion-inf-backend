@@ -3247,6 +3247,519 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Ventas",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ventas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ventas"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Listado exitoso",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ventas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ventas"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Ventas obtenidas\",\n  \"data\": [\n    {\n      \"id\": 3,\n      \"clienteId\": 3,\n      \"fecha\": \"2026-10-02\",\n      \"estado\": \"COMPLETADA\",\n      \"detalles\": [\n        {\n          \"id\": 4,\n          \"productoId\": 5,\n          \"cantidad\": 2,\n          \"precioUnitario\": 68000\n        },\n        {\n          \"id\": 5,\n          \"productoId\": 10,\n          \"cantidad\": 1,\n          \"precioUnitario\": 95000\n        }\n      ],\n      \"createdAt\": \"2026-10-02T11:00:00.000Z\",\n      \"updatedAt\": \"2026-10-02T11:00:00.000Z\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Sin token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ventas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ventas"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Token no proporcionado\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Crear",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1,\n      \"precioUnitario\": 42000\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2,\n      \"precioUnitario\": 12000\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ventas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ventas"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Registrada (nace COMPLETADA, descuenta stock)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1,\n      \"precioUnitario\": 42000\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2,\n      \"precioUnitario\": 12000\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/ventas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ventas"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Venta registrada\",\n  \"data\": {\n    \"id\": 9,\n    \"clienteId\": 3,\n    \"fecha\": \"2026-10-08\",\n    \"estado\": \"COMPLETADA\",\n    \"detalles\": [\n      {\n        \"id\": 1,\n        \"productoId\": 17,\n        \"cantidad\": 1,\n        \"precioUnitario\": 42000\n      },\n      {\n        \"id\": 2,\n        \"productoId\": 31,\n        \"cantidad\": 2,\n        \"precioUnitario\": 12000\n      }\n    ],\n    \"createdAt\": \"2026-10-08T13:00:00.000Z\",\n    \"updatedAt\": \"2026-10-08T13:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Stock insuficiente (RN-STK-01)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1,\n      \"precioUnitario\": 42000\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2,\n      \"precioUnitario\": 12000\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/ventas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ventas"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Stock insuficiente de ASRock Radeon RX 7600 Challenger (disponible: 0)\"\n}"
+            },
+            {
+              "name": "Cliente inexistente",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1,\n      \"precioUnitario\": 42000\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2,\n      \"precioUnitario\": 12000\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/ventas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ventas"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"El cliente indicado no existe\"\n}"
+            },
+            {
+              "name": "Producto inexistente",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1,\n      \"precioUnitario\": 42000\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2,\n      \"precioUnitario\": 12000\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/ventas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ventas"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"El producto 999 del detalle no existe\"\n}"
+            },
+            {
+              "name": "Sin detalles",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1,\n      \"precioUnitario\": 42000\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2,\n      \"precioUnitario\": 12000\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/ventas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ventas"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"detalles\\\" must contain at least 1 items\"\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Cancelar",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": \"CANCELADA\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ventas/:id/estado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ventas",
+                ":id",
+                "estado"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Cancelada (reintegra stock)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"CANCELADA\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/ventas/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ventas",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Venta cancelada\",\n  \"data\": {\n    \"id\": 3,\n    \"clienteId\": 3,\n    \"fecha\": \"2026-10-02\",\n    \"estado\": \"CANCELADA\",\n    \"detalles\": [\n      {\n        \"id\": 4,\n        \"productoId\": 5,\n        \"cantidad\": 2,\n        \"precioUnitario\": 68000\n      },\n      {\n        \"id\": 5,\n        \"productoId\": 10,\n        \"cantidad\": 1,\n        \"precioUnitario\": 95000\n      }\n    ],\n    \"createdAt\": \"2026-10-02T11:00:00.000Z\",\n    \"updatedAt\": \"2026-10-08T14:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "No encontrada",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"CANCELADA\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/ventas/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ventas",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Venta no encontrada\"\n}"
+            },
+            {
+              "name": "Ya CANCELADA",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"CANCELADA\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/ventas/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ventas",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Solo se puede cancelar una venta COMPLETADA\"\n}"
+            },
+            {
+              "name": "Estado inválido",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"CANCELADA\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/ventas/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ventas",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"estado\\\" must be [CANCELADA]\"\n  ]\n}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
