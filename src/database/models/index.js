@@ -1,5 +1,7 @@
 const sequelize = require('../sequelize');
 
+const Armado = require('./armado.model');
+const ArmadoComponente = require('./armadoComponente.model');
 const Categoria = require('./categoria.model');
 const Cliente = require('./cliente.model');
 const Compra = require('./compra.model');
@@ -25,8 +27,16 @@ Venta.hasMany(VentaDetalle, { foreignKey: 'ventaId', as: 'detalles' });
 VentaDetalle.belongsTo(Venta, { foreignKey: 'ventaId', as: 'venta' });
 VentaDetalle.belongsTo(Producto, { foreignKey: 'productoId', as: 'producto' });
 
+Armado.belongsTo(Usuario, { foreignKey: 'usuarioId', as: 'usuario' });
+Armado.belongsTo(Cliente, { foreignKey: 'clienteId', as: 'cliente' });
+Armado.hasMany(ArmadoComponente, { foreignKey: 'armadoId', as: 'componentes' });
+ArmadoComponente.belongsTo(Armado, { foreignKey: 'armadoId', as: 'armado' });
+ArmadoComponente.belongsTo(Producto, { foreignKey: 'productoId', as: 'producto' });
+
 module.exports = {
   sequelize,
+  Armado,
+  ArmadoComponente,
   Categoria,
   Cliente,
   Compra,

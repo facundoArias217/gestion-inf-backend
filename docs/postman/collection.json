@@ -3760,6 +3760,712 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Armados",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/armados",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "armados"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Listado exitoso",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/armados",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Armados obtenidos\",\n  \"data\": [\n    {\n      \"id\": 4,\n      \"nombre\": \"Configuración pendiente de González\",\n      \"descripcion\": \"Completa, lista para finalizar\",\n      \"clienteId\": 1,\n      \"estado\": \"BORRADOR\",\n      \"componentes\": [\n        {\n          \"id\": 21,\n          \"productoId\": 2,\n          \"cantidad\": 1,\n          \"precioUnitario\": 285000\n        },\n        {\n          \"id\": 22,\n          \"productoId\": 3,\n          \"cantidad\": 1,\n          \"precioUnitario\": 210000\n        }\n      ],\n      \"createdAt\": \"2026-10-05T09:00:00.000Z\",\n      \"updatedAt\": \"2026-10-05T09:00:00.000Z\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Sin token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/armados",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Token no proporcionado\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Crear",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"PC de prueba\",\n  \"descripcion\": \"Build de pruebas para Postman\",\n  \"clienteId\": 3,\n  \"componentes\": [\n    {\n      \"productoId\": 2,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 3,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 2\n    },\n    {\n      \"productoId\": 10,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 12,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 15,\n      \"cantidad\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/armados",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "armados"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Registrado (nace BORRADOR)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"PC de prueba\",\n  \"descripcion\": \"Build de pruebas para Postman\",\n  \"clienteId\": 3,\n  \"componentes\": [\n    {\n      \"productoId\": 2,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 3,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 2\n    },\n    {\n      \"productoId\": 10,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 12,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 15,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Armado registrado\",\n  \"data\": {\n    \"id\": 7,\n    \"nombre\": \"PC de prueba\",\n    \"descripcion\": \"Build de pruebas para Postman\",\n    \"clienteId\": 3,\n    \"estado\": \"BORRADOR\",\n    \"componentes\": [\n      {\n        \"id\": 1,\n        \"productoId\": 2,\n        \"cantidad\": 1,\n        \"precioUnitario\": 0\n      },\n      {\n        \"id\": 2,\n        \"productoId\": 3,\n        \"cantidad\": 1,\n        \"precioUnitario\": 0\n      },\n      {\n        \"id\": 3,\n        \"productoId\": 5,\n        \"cantidad\": 2,\n        \"precioUnitario\": 0\n      },\n      {\n        \"id\": 4,\n        \"productoId\": 10,\n        \"cantidad\": 1,\n        \"precioUnitario\": 0\n      },\n      {\n        \"id\": 5,\n        \"productoId\": 12,\n        \"cantidad\": 1,\n        \"precioUnitario\": 0\n      },\n      {\n        \"id\": 6,\n        \"productoId\": 15,\n        \"cantidad\": 1,\n        \"precioUnitario\": 0\n      }\n    ],\n    \"createdAt\": \"2026-10-10T13:00:00.000Z\",\n    \"updatedAt\": \"2026-10-10T13:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Stock insuficiente (RN-STK-01)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"PC de prueba\",\n  \"descripcion\": \"Build de pruebas para Postman\",\n  \"clienteId\": 3,\n  \"componentes\": [\n    {\n      \"productoId\": 2,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 3,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 2\n    },\n    {\n      \"productoId\": 10,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 12,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 15,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Stock insuficiente de ASRock Radeon RX 7600 Challenger (disponible: 0)\"\n}"
+            },
+            {
+              "name": "Cliente inexistente",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"PC de prueba\",\n  \"descripcion\": \"Build de pruebas para Postman\",\n  \"clienteId\": 3,\n  \"componentes\": [\n    {\n      \"productoId\": 2,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 3,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 2\n    },\n    {\n      \"productoId\": 10,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 12,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 15,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"El cliente indicado no existe\"\n}"
+            },
+            {
+              "name": "Producto inexistente",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"PC de prueba\",\n  \"descripcion\": \"Build de pruebas para Postman\",\n  \"clienteId\": 3,\n  \"componentes\": [\n    {\n      \"productoId\": 2,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 3,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 2\n    },\n    {\n      \"productoId\": 10,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 12,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 15,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"El producto 999 no existe\"\n}"
+            },
+            {
+              "name": "Sin componentes",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"PC de prueba\",\n  \"descripcion\": \"Build de pruebas para Postman\",\n  \"clienteId\": 3,\n  \"componentes\": [\n    {\n      \"productoId\": 2,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 3,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 2\n    },\n    {\n      \"productoId\": 10,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 12,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 15,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"componentes\\\" must contain at least 1 items\"\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Actualizar",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"PC de prueba\",\n  \"descripcion\": \"Build de pruebas para Postman\",\n  \"clienteId\": 3,\n  \"componentes\": [\n    {\n      \"productoId\": 2,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 3,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 2\n    },\n    {\n      \"productoId\": 10,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 12,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 15,\n      \"cantidad\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/armados/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "armados",
+                ":id"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Actualizado (solo BORRADOR)",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"PC de prueba\",\n  \"descripcion\": \"Build de pruebas para Postman\",\n  \"clienteId\": 3,\n  \"componentes\": [\n    {\n      \"productoId\": 2,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 3,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 2\n    },\n    {\n      \"productoId\": 10,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 12,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 15,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados",
+                    ":id"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Armado actualizado\",\n  \"data\": {\n    \"id\": 4,\n    \"nombre\": \"Configuración pendiente de González\",\n    \"descripcion\": \"Completa, lista para finalizar\",\n    \"clienteId\": 1,\n    \"estado\": \"BORRADOR\",\n    \"componentes\": [\n      {\n        \"id\": 21,\n        \"productoId\": 2,\n        \"cantidad\": 1,\n        \"precioUnitario\": 285000\n      },\n      {\n        \"id\": 22,\n        \"productoId\": 3,\n        \"cantidad\": 1,\n        \"precioUnitario\": 210000\n      }\n    ],\n    \"createdAt\": \"2026-10-05T09:00:00.000Z\",\n    \"updatedAt\": \"2026-10-05T09:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "No encontrado",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"PC de prueba\",\n  \"descripcion\": \"Build de pruebas para Postman\",\n  \"clienteId\": 3,\n  \"componentes\": [\n    {\n      \"productoId\": 2,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 3,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 2\n    },\n    {\n      \"productoId\": 10,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 12,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 15,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados",
+                    ":id"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Armado no encontrado\"\n}"
+            },
+            {
+              "name": "Ya FINALIZADO",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"PC de prueba\",\n  \"descripcion\": \"Build de pruebas para Postman\",\n  \"clienteId\": 3,\n  \"componentes\": [\n    {\n      \"productoId\": 2,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 3,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 2\n    },\n    {\n      \"productoId\": 10,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 12,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 15,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados",
+                    ":id"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Solo se puede editar un armado en BORRADOR\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Finalizar",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": \"FINALIZADO\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/armados/:id/estado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "armados",
+                ":id",
+                "estado"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Finalizado",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"FINALIZADO\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Armado finalizado\",\n  \"data\": {\n    \"id\": 4,\n    \"nombre\": \"Configuración pendiente de González\",\n    \"descripcion\": \"Completa, lista para finalizar\",\n    \"clienteId\": 1,\n    \"estado\": \"FINALIZADO\",\n    \"componentes\": [\n      {\n        \"id\": 21,\n        \"productoId\": 2,\n        \"cantidad\": 1,\n        \"precioUnitario\": 285000\n      },\n      {\n        \"id\": 22,\n        \"productoId\": 3,\n        \"cantidad\": 1,\n        \"precioUnitario\": 210000\n      }\n    ],\n    \"createdAt\": \"2026-10-05T09:00:00.000Z\",\n    \"updatedAt\": \"2026-10-10T14:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "No encontrado",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"FINALIZADO\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Armado no encontrado\"\n}"
+            },
+            {
+              "name": "Ya FINALIZADO",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"FINALIZADO\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Solo se puede finalizar un armado en BORRADOR\"\n}"
+            },
+            {
+              "name": "Incompleto (regla 17)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"FINALIZADO\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"El armado no está completo: faltan Motherboard, Memoria RAM, Almacenamiento, Fuente\"\n}"
+            },
+            {
+              "name": "Estado inválido",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"FINALIZADO\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/armados/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "armados",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"estado\\\" must be [FINALIZADO]\"\n  ]\n}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
