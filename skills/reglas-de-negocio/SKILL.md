@@ -238,6 +238,26 @@ Fuente de verdad: `docs/brd.md` (v1.1). Complemento de validaciones: `docs/model
 
 ---
 
+## Reglas decididas en la implementación
+
+Reglas funcionales decididas durante el desarrollo que **complementan** (sin contradecir) a las RN del BRD. Convención: toda regla que se decida durante una tarjeta se documenta acá en la misma corrida de la decisión, con la tarjeta de origen. Mismos IDs que la sección §4 del FRD-v1 (`docs` del Escritorio / informe del proyecto).
+
+| ID | Regla | Tarjeta |
+| --- | --- | --- |
+| RFN-01 | **Bajas siempre lógicas:** no existe eliminación definitiva de registros en ningún módulo; la "baja" es siempre `activo = false`, sin endpoints de borrado físico. | 2.2 |
+| RFN-02 | **Ciclo de vida con Histórico:** los registros desactivados pasan a la pestaña «Histórico» del listado, donde pueden reactivarse (`PATCH /:id/estado { activo }`, idempotente). | 2.2 |
+| RFN-03 | **Unicidad global de nombre de categoría** (case-insensitive, incluye inactivas) → 409; la reactivación nunca colisiona. | 2.2 |
+| RFN-04 | **Stock como atributo editable** del producto en alta y edición; no existe módulo de stock aparte. | 3.1 |
+| RFN-05 | **Productos sin unicidad** de nombre+marca (mismo nombre con distinta marca es válido). | 3.1 |
+| RFN-09 | **Máquinas de estados de una dirección:** compra (PENDIENTE → COMPLETADA/CANCELADA), venta (COMPLETADA → CANCELADA), armado (BORRADOR → FINALIZADO), presupuesto (PENDIENTE → ACEPTADO/RECHAZADO → CONVERTIDO). Sin transiciones hacia atrás; el target de estado se valida con enum en el validator. | 6.2/7.1/8.2/9.1 |
+| RFN-10 | **precioUnitario de los detalles computado por el backend:** el FE envía solo `{ productoId, cantidad }`; el BE toma el precio de lista al crear y lo persiste como histórico (compras, ventas, armados y presupuestos). | 6.3/7.2/8.3 |
+| RFN-11 | **Cliente opcional en el armado** (cierra la decisión pendiente §16.4 del modelo de datos): el armado es autónomo (RN-ARM-01) y la persona se asigna recién al presupuesto (RN-PRE-01). | 8.1 |
+| RFN-12 | **Validación de CUIT/CUIL con dígito verificador AFIP** (pesos 5,4,3,2,7,6,5,4,3,2) sobre 11 dígitos sin guiones; clientes solo prefijos de persona física (20/23/24/27); proveedores aceptan además los de empresa (30/33/34). | 4.1/4.2/5.1/5.2 |
+| RFN-13 | **Vencimiento de presupuestos por vigencia editable:** el FE ofrece presets (default **48 horas = +2 días**, 7/15/30 días o personalizada) y computa `fechaVencimiento` en vivo; el dato persistido y del contrato es la fecha, no la vigencia. El default es parámetro de UX: la decisión «X días» del BRD sigue pendiente. | 9.1 |
+| RFN-14 | **Stock al cotizar un presupuesto: advertencia informativa, no bloqueante** (RN-ARM-03 «puede verificarse al cotizar»); el chequeo duro ocurre al convertir en venta (RN-STK-03). Permite cotizar reposición futura. | 9.1 |
+| RFN-15 | **Un presupuesto puede incluir un armado FINALIZADO y productos sueltos a la vez** (al menos uno de los dos requerido); los componentes del armado no se duplican en el detalle (RN-ARM-05): el presupuesto referencia `armadoId` y el total del armado se suma al del detalle. | 9.1 |
+| RFN-16 | **Estado VENCIDO del presupuesto computado, no persistido:** al renderizar, un presupuesto con `fechaVencimiento < hoy` y estado ∈ {PENDIENTE, ACEPTADO} se muestra VENCIDO; no hay acción que lo setee (la conversión de un vencido exige recálculo, RN-PRE-03 — tarjeta 9.2). | 9.1 |
+
 ## Reglas pendientes de definición
 
 No implementar como definitivas sin una decisión explícita; marcar como pendientes:
