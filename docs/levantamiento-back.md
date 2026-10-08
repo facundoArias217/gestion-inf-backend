@@ -6,7 +6,8 @@ Guía para levantar el backend, la base de datos y el frontend del sistema de ge
 
 ## 1. Requisitos
 
-- **Node.js 24** (Vite 8 y las dependencias actuales lo requieren): `nvm use 24.11.0`. Verificar con `node -v`.
+- **Node.js 24** (Vite 8 y las dependencias actuales lo requieren). Cada repo tiene un `.nvmrc` (`24.11.0`): con nvm-windows v2 en modo shim, `node`/`npm` resuelven automáticamente la versión del proyecto al ejecutarse dentro del repo. Verificar con `node -v` (debe imprimir `v24.11.0`).
+- No usar `nvm use <versión>` global: cambia el default de toda la máquina y pisa a otros proyectos (p. ej. uno que requiera Node 14 con su propio `.nvmrc`); el `.nvmrc` del proyecto en el que estás parado manda.
 - **Docker Desktop** corriendo (la base de datos corre en un contenedor aislado).
 - Postgres local **no** es necesario: el proyecto usa su propia instancia Docker en el puerto **5433**, aislada de otros proyectos que usen 5432.
 
