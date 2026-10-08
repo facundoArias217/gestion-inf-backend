@@ -31,7 +31,7 @@ return res.status(200).json({ message: '...', data: serializarProducto(producto)
 Cuando el BRD lo requiera, el serializer del módulo filtra campos según el rol del usuario autenticado (`req.usuario.rol`):
 
 - El service pasa el rol al serializer: `serializarCompra(compra, rol)`.
-- Ejemplo (tarjeta BE de compras): los costos de compra se ven solo para ADMIN; para VENDEDOR se omiten los campos de costo según las RN del BRD.
+- Ejemplo hipotético (hoy ningún módulo del BRD requiere filtrado por rol): si el BRD pidiera que los costos de compra se vean solo para ADMIN, la whitelist por rol se definiría en el serializer (`serializarCompra(compra, rol)`). Compras es ADMIN-only, así que no existe filtrado implementado; no adelantar filtrados que el BRD no pida.
 - La lista de campos visibles por rol se define en el serializer (whitelist por rol), no en el controller ni con lógica dispersa.
 
 ## Errores

@@ -1,7 +1,7 @@
 # Informe de ejecución — Tarjeta 8.3 [BE] Armados
 
 **Tarjeta:** 8.3 — Armados: CRUD, completitud, advertencias y disponibilidad (backend)
-**Tipo:** [BE] · **Fecha:** 10/10/2026 · **Repositorio:** gestion-inf-backend
+**Tipo:** [BE] · **Fecha:** 08/10/2026 · **Repositorio:** gestion-inf-backend
 
 ## Alcance ejecutado
 

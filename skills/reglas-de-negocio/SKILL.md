@@ -257,6 +257,7 @@ Reglas funcionales decididas durante el desarrollo que **complementan** (sin con
 | RFN-14 | **Stock al cotizar un presupuesto: advertencia informativa, no bloqueante** (RN-ARM-03 «puede verificarse al cotizar»); el chequeo duro ocurre al convertir en venta (RN-STK-03). Permite cotizar reposición futura. | 9.1 |
 | RFN-15 | **Un presupuesto puede incluir un armado FINALIZADO y productos sueltos a la vez** (al menos uno de los dos requerido); los componentes del armado no se duplican en el detalle (RN-ARM-05): el presupuesto referencia `armadoId` y el total del armado se suma al del detalle. | 9.1 |
 | RFN-16 | **Estado VENCIDO del presupuesto computado, no persistido:** al renderizar, un presupuesto con `fechaVencimiento < hoy` y estado ∈ {PENDIENTE, ACEPTADO} se muestra VENCIDO; no hay acción que lo setee (la conversión de un vencido exige recálculo, RN-PRE-03 — tarjeta 9.2). | 9.1 |
+| RFN-17 | **Venta 1—N Pago:** un pago RECHAZADO no bloquea nuevos intentos de cobro sobre la misma venta; cada intento registra medio, monto y resultado y nunca toca stock (RN-PAG-03). Se aplica en la tarjeta 10.2. | 10.2 (decidida 08/10/2026) |
 
 ## Reglas pendientes de definición
 
