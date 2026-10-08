@@ -7,7 +7,6 @@ const idSchema = Joi.object({
 const detalleSchema = Joi.object({
   productoId: Joi.number().integer().positive().required(),
   cantidad: Joi.number().integer().min(1).required(),
-  precioUnitario: Joi.number().positive().required(),
 });
 
 const crearSchema = Joi.object({

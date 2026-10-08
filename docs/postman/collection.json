@@ -3352,7 +3352,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1,\n      \"precioUnitario\": 42000\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2,\n      \"precioUnitario\": 12000\n    }\n  ]\n}"
+              "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/ventas",
@@ -3381,7 +3381,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1,\n      \"precioUnitario\": 42000\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2,\n      \"precioUnitario\": 12000\n    }\n  ]\n}"
+                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/ventas",
@@ -3420,7 +3420,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1,\n      \"precioUnitario\": 42000\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2,\n      \"precioUnitario\": 12000\n    }\n  ]\n}"
+                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/ventas",
@@ -3459,7 +3459,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1,\n      \"precioUnitario\": 42000\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2,\n      \"precioUnitario\": 12000\n    }\n  ]\n}"
+                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/ventas",
@@ -3498,7 +3498,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1,\n      \"precioUnitario\": 42000\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2,\n      \"precioUnitario\": 12000\n    }\n  ]\n}"
+                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/ventas",
@@ -3537,7 +3537,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1,\n      \"precioUnitario\": 42000\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2,\n      \"precioUnitario\": 12000\n    }\n  ]\n}"
+                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/ventas",

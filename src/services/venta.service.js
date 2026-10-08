@@ -31,6 +31,7 @@ async function crear({ clienteId, fecha, detalles }, usuarioId) {
   }
 
   const venta = await sequelize.transaction(async (transaccion) => {
+    const precios = {};
     for (const detalle of detalles) {
       const producto = await Producto.findByPk(detalle.productoId, {
         lock: transaccion.LOCK.UPDATE,
@@ -50,6 +51,8 @@ async function crear({ clienteId, fecha, detalles }, usuarioId) {
           409,
         );
       }
+
+      precios[detalle.productoId] = producto.precio;
     }
 
     const nueva = await Venta.create(
@@ -62,7 +65,7 @@ async function crear({ clienteId, fecha, detalles }, usuarioId) {
         ventaId: nueva.id,
         productoId: detalle.productoId,
         cantidad: detalle.cantidad,
-        precioUnitario: detalle.precioUnitario,
+        precioUnitario: precios[detalle.productoId],
       })),
       { transaction: transaccion },
     );
