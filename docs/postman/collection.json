@@ -5016,6 +5016,220 @@
               "body": "{\n  \"message\": \"Presupuesto no encontrado\"\n}"
             }
           ]
+        },
+        {
+          "name": "Convertir",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/presupuestos/:id/convertir",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "presupuestos",
+                ":id",
+                "convertir"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Convertido (venta COMPLETADA con líneas de sueltos + componentes del armado)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos/:id/convertir",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos",
+                    ":id",
+                    "convertir"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Presupuesto convertido\",\n  \"data\": {\n    \"venta\": {\n      \"id\": 9,\n      \"clienteId\": 1,\n      \"presupuestoId\": 3,\n      \"fecha\": \"2026-10-08\",\n      \"estado\": \"COMPLETADA\",\n      \"detalles\": [\n        {\n          \"id\": 17,\n          \"productoId\": 17,\n          \"cantidad\": 1,\n          \"precioUnitario\": 42000\n        },\n        {\n          \"id\": 18,\n          \"productoId\": 2,\n          \"cantidad\": 1,\n          \"precioUnitario\": 285000\n        },\n        {\n          \"id\": 19,\n          \"productoId\": 4,\n          \"cantidad\": 1,\n          \"precioUnitario\": 185000\n        }\n      ],\n      \"createdAt\": \"2026-10-08T19:00:00.000Z\",\n      \"updatedAt\": \"2026-10-08T19:00:00.000Z\"\n    },\n    \"presupuesto\": {\n      \"id\": 3,\n      \"clienteId\": 1,\n      \"armadoId\": 2,\n      \"fecha\": \"2026-10-08\",\n      \"fechaVencimiento\": \"2026-10-22\",\n      \"estado\": \"CONVERTIDO\",\n      \"detalles\": [\n        {\n          \"id\": 1,\n          \"productoId\": 17,\n          \"cantidad\": 1,\n          \"precioUnitario\": 42000\n        },\n        {\n          \"id\": 2,\n          \"productoId\": 31,\n          \"cantidad\": 2,\n          \"precioUnitario\": 12000\n        }\n      ],\n      \"createdAt\": \"2026-10-08T16:00:00.000Z\",\n      \"updatedAt\": \"2026-10-08T19:00:00.000Z\"\n    }\n  }\n}"
+            },
+            {
+              "name": "No está ACEPTADO",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos/:id/convertir",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos",
+                    ":id",
+                    "convertir"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Solo se puede convertir un presupuesto ACEPTADO\"\n}"
+            },
+            {
+              "name": "Ya CONVERTIDO (conversión única, RN-PRE-04)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos/:id/convertir",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos",
+                    ":id",
+                    "convertir"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Solo se puede convertir un presupuesto ACEPTADO\"\n}"
+            },
+            {
+              "name": "Stock insuficiente (reverificación, RN-STK-03)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos/:id/convertir",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos",
+                    ":id",
+                    "convertir"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Stock insuficiente de ASRock Radeon RX 7600 Challenger (disponible: 0)\"\n}"
+            },
+            {
+              "name": "No encontrado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos/:id/convertir",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos",
+                    ":id",
+                    "convertir"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Presupuesto no encontrado\"\n}"
+            }
+          ]
         }
       ]
     }

@@ -34,4 +34,13 @@ async function cambiarEstado(req, res, next) {
   }
 }
 
-module.exports = { listar, crear, cambiarEstado };
+async function convertir(req, res, next) {
+  try {
+    const data = await presupuestoService.convertir(req.params.id, req.usuario.id);
+    return res.status(201).json({ message: 'Presupuesto convertido', data });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+module.exports = { listar, crear, cambiarEstado, convertir };
