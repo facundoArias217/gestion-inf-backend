@@ -1,6 +1,5 @@
 const Joi = require('joi');
 
-const PESOS_CUIT = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2];
 const PREFIJOS_PERSONA = ['20', '23', '24', '27'];
 const PREFIJOS_EMPRESA = ['30', '33', '34'];
 const PREFIJOS_TODOS = [...PREFIJOS_PERSONA, ...PREFIJOS_EMPRESA];
@@ -12,18 +11,7 @@ function esCuitValido(cuit) {
     return false;
   }
 
-  if (!PREFIJOS_TODOS.includes(digitos.slice(0, 2))) {
-    return false;
-  }
-
-  const suma = digitos
-    .slice(0, 10)
-    .split('')
-    .reduce((acum, digito, i) => acum + Number(digito) * PESOS_CUIT[i], 0);
-  const verificador = 11 - (suma % 11);
-  const esperado = verificador === 11 ? 0 : verificador;
-
-  return esperado !== 10 && Number(digitos[10]) === esperado;
+  return PREFIJOS_TODOS.includes(digitos.slice(0, 2));
 }
 
 const idSchema = Joi.object({
