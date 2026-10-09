@@ -9,6 +9,7 @@ const pagoRoutes = require('./pago.routes');
 const presupuestoRoutes = require('./presupuesto.routes');
 const productoRoutes = require('./producto.routes');
 const proveedorRoutes = require('./proveedor.routes');
+const usuarioRoutes = require('./usuario.routes');
 const ventaRoutes = require('./venta.routes');
 
 const router = Router();
@@ -22,6 +23,7 @@ router.use('/pagos', pagoRoutes);
 router.use('/presupuestos', presupuestoRoutes);
 router.use('/productos', productoRoutes);
 router.use('/proveedores', proveedorRoutes);
+router.use('/usuarios', usuarioRoutes);
 router.use('/ventas', ventaRoutes);
 
 module.exports = router;

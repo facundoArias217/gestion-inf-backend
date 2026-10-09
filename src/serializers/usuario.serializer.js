@@ -1,4 +1,4 @@
-const CAMPOS_PUBLICOS = ['id', 'nombre', 'apellido', 'email', 'rol'];
+const CAMPOS_PUBLICOS = ['id', 'nombre', 'apellido', 'email', 'rol', 'activo', 'createdAt', 'updatedAt'];
 
 function serializarUsuario(usuario) {
   const plano = usuario.toJSON ? usuario.toJSON() : usuario;
@@ -8,4 +8,8 @@ function serializarUsuario(usuario) {
   }, {});
 }
 
-module.exports = { serializarUsuario, CAMPOS_PUBLICOS };
+function serializarUsuarios(usuarios) {
+  return usuarios.map(serializarUsuario);
+}
+
+module.exports = { serializarUsuario, serializarUsuarios, CAMPOS_PUBLICOS };
