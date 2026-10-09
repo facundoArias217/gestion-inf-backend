@@ -41,4 +41,13 @@ async function cambiarEstado(req, res, next) {
   }
 }
 
-module.exports = { listar, crear, actualizar, cambiarEstado };
+async function duplicar(req, res, next) {
+  try {
+    const data = await armadoService.duplicar(req.params.id, req.usuario.id);
+    return res.status(201).json({ message: 'Armado duplicado', data });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+module.exports = { listar, crear, actualizar, cambiarEstado, duplicar };

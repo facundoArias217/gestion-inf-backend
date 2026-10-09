@@ -16,6 +16,7 @@ router.use(autorizar('ADMIN', 'VENDEDOR'));
 
 router.get('/', controller.listar);
 router.post('/', validarCrearArmado, controller.crear);
+router.post('/:id/duplicar', validarId, controller.duplicar);
 router.put('/:id', validarId, validarActualizarArmado, controller.actualizar);
 router.patch(
   '/:id/estado',

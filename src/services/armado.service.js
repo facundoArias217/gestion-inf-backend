@@ -199,4 +199,34 @@ async function cambiarEstado(id, { estado }) {
   return { armado: serializarArmado(armadoCompleto), estado };
 }
 
-module.exports = { listar, crear, actualizar, cambiarEstado };
+async function duplicar(id, usuarioId) {
+  const original = await Armado.findByPk(id, {
+    include: [{ model: ArmadoComponente, as: 'componentes' }],
+  });
+
+  if (!original) {
+    throw errorDeNegocio('Armado no encontrado', 404);
+  }
+
+  if (original.componentes.length === 0) {
+    throw errorDeNegocio(
+      'El armado no tiene componentes para duplicar',
+      400,
+    );
+  }
+
+  return crear(
+    {
+      nombre: `${original.nombre} (copia)`,
+      descripcion: original.descripcion,
+      clienteId: null,
+      componentes: original.componentes.map((componente) => ({
+        productoId: componente.productoId,
+        cantidad: componente.cantidad,
+      })),
+    },
+    usuarioId,
+  );
+}
+
+module.exports = { listar, crear, actualizar, cambiarEstado, duplicar };
