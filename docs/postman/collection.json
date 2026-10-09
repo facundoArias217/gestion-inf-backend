@@ -5232,6 +5232,343 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Pagos",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pagos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pagos"
+              ],
+              "query": [
+                {
+                  "key": "ventaId",
+                  "value": "2",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Listado exitoso (acepta ?ventaId=)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pagos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pagos"
+                  ],
+                  "query": [
+                    {
+                      "key": "ventaId",
+                      "value": "2",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Pagos obtenidos\",\n  \"data\": [\n    {\n      \"id\": 2,\n      \"ventaId\": 2,\n      \"medioPago\": \"TARJETA\",\n      \"monto\": 480000,\n      \"resultado\": \"RECHAZADO\",\n      \"fecha\": \"2026-10-01\",\n      \"createdAt\": \"2026-10-01T17:00:00.000Z\",\n      \"updatedAt\": \"2026-10-01T17:00:00.000Z\"\n    },\n    {\n      \"id\": 3,\n      \"ventaId\": 2,\n      \"medioPago\": \"TRANSFERENCIA\",\n      \"monto\": 480000,\n      \"resultado\": \"APROBADO\",\n      \"fecha\": \"2026-10-02\",\n      \"createdAt\": \"2026-10-02T10:15:00.000Z\",\n      \"updatedAt\": \"2026-10-02T10:15:00.000Z\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Sin token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pagos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pagos"
+                  ],
+                  "query": [
+                    {
+                      "key": "ventaId",
+                      "value": "2",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Token no proporcionado\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Crear",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ventaId\": 4,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 870000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/pagos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pagos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Registrado (no toca stock, RN-PAG-03)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ventaId\": 4,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 870000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pagos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pagos"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Pago registrado\",\n  \"data\": {\n    \"id\": 5,\n    \"ventaId\": 4,\n    \"medioPago\": \"EFECTIVO\",\n    \"monto\": 870000,\n    \"resultado\": \"APROBADO\",\n    \"fecha\": \"2026-10-08\",\n    \"createdAt\": \"2026-10-08T20:00:00.000Z\",\n    \"updatedAt\": \"2026-10-08T20:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Venta CANCELADA (solo COMPLETADA se cobra)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ventaId\": 4,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 870000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pagos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pagos"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Solo se puede cobrar una venta COMPLETADA\"\n}"
+            },
+            {
+              "name": "Venta inexistente",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ventaId\": 4,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 870000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pagos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pagos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"La venta indicada no existe\"\n}"
+            },
+            {
+              "name": "Medio inválido (RFN-18)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ventaId\": 4,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 870000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pagos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pagos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"medioPago\\\" must be one of [EFECTIVO, TRANSFERENCIA, TARJETA]\"\n  ]\n}"
+            },
+            {
+              "name": "Resultado inválido (RFN-18)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ventaId\": 4,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 870000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pagos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pagos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"resultado\\\" must be one of [APROBADO, RECHAZADO]\"\n  ]\n}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

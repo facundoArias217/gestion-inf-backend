@@ -6,6 +6,7 @@ const Categoria = require('./categoria.model');
 const Cliente = require('./cliente.model');
 const Compra = require('./compra.model');
 const CompraDetalle = require('./compraDetalle.model');
+const Pago = require('./pago.model');
 const Presupuesto = require('./presupuesto.model');
 const PresupuestoDetalle = require('./presupuestoDetalle.model');
 const Producto = require('./producto.model');
@@ -44,6 +45,8 @@ PresupuestoDetalle.belongsTo(Presupuesto, { foreignKey: 'presupuestoId', as: 'pr
 PresupuestoDetalle.belongsTo(Producto, { foreignKey: 'productoId', as: 'producto' });
 
 Venta.belongsTo(Presupuesto, { foreignKey: 'presupuestoId', as: 'presupuesto' });
+Venta.hasMany(Pago, { foreignKey: 'ventaId', as: 'pagos' });
+Pago.belongsTo(Venta, { foreignKey: 'ventaId', as: 'venta' });
 
 module.exports = {
   sequelize,
@@ -53,6 +56,7 @@ module.exports = {
   Cliente,
   Compra,
   CompraDetalle,
+  Pago,
   Presupuesto,
   PresupuestoDetalle,
   Producto,
