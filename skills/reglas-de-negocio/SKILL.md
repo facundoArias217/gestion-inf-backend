@@ -258,6 +258,8 @@ Reglas funcionales decididas durante el desarrollo que **complementan** (sin con
 | RFN-15 | **Un presupuesto puede incluir un armado FINALIZADO y productos sueltos a la vez** (al menos uno de los dos requerido); los componentes del armado no se duplican en el detalle (RN-ARM-05): el presupuesto referencia `armadoId` y el total del armado se suma al del detalle. | 9.1 |
 | RFN-16 | **Estado VENCIDO del presupuesto computado, no persistido:** al renderizar, un presupuesto con `fechaVencimiento < hoy` y estado ∈ {PENDIENTE, ACEPTADO} se muestra VENCIDO; no hay acción que lo setee (la conversión de un vencido exige recálculo, RN-PRE-03 — tarjeta 9.2). | 9.1 |
 | RFN-17 | **Venta 1—N Pago:** un pago RECHAZADO no bloquea nuevos intentos de cobro sobre la misma venta; cada intento registra medio, monto y resultado y nunca toca stock (RN-PAG-03). Se aplica en la tarjeta 10.2. | 10.2 (decidida 08/10/2026) |
+| RFN-19 | **Reuso de armado entre presupuestos:** `presupuestos.armadoId` es FK nullable **sin unicidad**; un armado FINALIZADO puede cotizarse en varios presupuestos (el mock de la 9.1 lo hace). La unicidad de conversión la garantiza el estado del presupuesto (RN-PRE-04) y el stock se re-verifica en cada conversión (RN-STK-03), por lo que reusar un armado no reserva ni agota stock. | 9.3 |
+| RFN-20 | **Presupuesto↔Venta 1:1:** `ventas.presupuestoId` es FK nullable con constraint unique; una venta derivada referencia exactamente un presupuesto y un presupuesto genera como máximo una venta. El DTO de venta incorpora `presupuestoId` (campo aditivo del contrato). | 9.3 |
 
 ## Reglas pendientes de definición
 

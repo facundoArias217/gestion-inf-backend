@@ -4466,6 +4466,558 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Presupuestos",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/presupuestos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "presupuestos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Listado exitoso",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Presupuestos obtenidos\",\n  \"data\": [\n    {\n      \"id\": 2,\n      \"clienteId\": 5,\n      \"armadoId\": 3,\n      \"fecha\": \"2026-10-07\",\n      \"fechaVencimiento\": \"2026-10-14\",\n      \"estado\": \"ACEPTADO\",\n      \"detalles\": [],\n      \"createdAt\": \"2026-10-07T12:00:00.000Z\",\n      \"updatedAt\": \"2026-10-09T10:00:00.000Z\"\n    },\n    {\n      \"id\": 3,\n      \"clienteId\": 1,\n      \"armadoId\": 2,\n      \"fecha\": \"2026-10-08\",\n      \"fechaVencimiento\": \"2026-10-22\",\n      \"estado\": \"PENDIENTE\",\n      \"detalles\": [\n        {\n          \"id\": 1,\n          \"productoId\": 17,\n          \"cantidad\": 1,\n          \"precioUnitario\": 42000\n        },\n        {\n          \"id\": 2,\n          \"productoId\": 31,\n          \"cantidad\": 2,\n          \"precioUnitario\": 12000\n        }\n      ],\n      \"createdAt\": \"2026-10-08T16:00:00.000Z\",\n      \"updatedAt\": \"2026-10-08T16:00:00.000Z\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Sin token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Token no proporcionado\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Crear",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"fechaVencimiento\": \"2026-10-10\",\n  \"armadoId\": 1,\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/presupuestos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "presupuestos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Registrado (nace PENDIENTE; el precio lo computa el backend)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"fechaVencimiento\": \"2026-10-10\",\n  \"armadoId\": 1,\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Presupuesto registrado\",\n  \"data\": {\n    \"id\": 9,\n    \"clienteId\": 1,\n    \"armadoId\": 1,\n    \"fecha\": \"2026-10-08\",\n    \"fechaVencimiento\": \"2026-10-10\",\n    \"estado\": \"PENDIENTE\",\n    \"detalles\": [\n      {\n        \"id\": 9,\n        \"productoId\": 17,\n        \"cantidad\": 1,\n        \"precioUnitario\": 42000\n      }\n    ],\n    \"createdAt\": \"2026-10-08T18:00:00.000Z\",\n    \"updatedAt\": \"2026-10-08T18:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Armado no FINALIZADO (RN-ARM-04)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"fechaVencimiento\": \"2026-10-10\",\n  \"armadoId\": 1,\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Solo un armado FINALIZADO puede asociarse a un presupuesto\"\n}"
+            },
+            {
+              "name": "Sin armado ni productos (RFN-15)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"fechaVencimiento\": \"2026-10-10\",\n  \"armadoId\": 1,\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"El presupuesto debe tener al menos un producto o un armado\"\n}"
+            },
+            {
+              "name": "Cliente inexistente",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"fechaVencimiento\": \"2026-10-10\",\n  \"armadoId\": 1,\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"El cliente indicado no existe\"\n}"
+            },
+            {
+              "name": "Vencimiento anterior a la fecha",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"fechaVencimiento\": \"2026-10-10\",\n  \"armadoId\": 1,\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"La fecha de vencimiento no puede ser anterior a la fecha del presupuesto\"\n}"
+            },
+            {
+              "name": "Precio enviado por el cliente (contrato estricto)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"fechaVencimiento\": \"2026-10-10\",\n  \"armadoId\": 1,\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"detalles[0].precioUnitario\\\" is not allowed\"\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Cambiar estado",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": \"ACEPTADO\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/presupuestos/:id/estado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "presupuestos",
+                ":id",
+                "estado"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Aceptado (solo PENDIENTE)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"ACEPTADO\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Presupuesto aceptado\",\n  \"data\": {\n    \"id\": 3,\n    \"clienteId\": 1,\n    \"armadoId\": 2,\n    \"fecha\": \"2026-10-08\",\n    \"fechaVencimiento\": \"2026-10-22\",\n    \"estado\": \"ACEPTADO\",\n    \"detalles\": [\n      {\n        \"id\": 1,\n        \"productoId\": 17,\n        \"cantidad\": 1,\n        \"precioUnitario\": 42000\n      },\n      {\n        \"id\": 2,\n        \"productoId\": 31,\n        \"cantidad\": 2,\n        \"precioUnitario\": 12000\n      }\n    ],\n    \"createdAt\": \"2026-10-08T16:00:00.000Z\",\n    \"updatedAt\": \"2026-10-08T18:05:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "No está PENDIENTE",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"ACEPTADO\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Solo se puede aceptar o rechazar un presupuesto PENDIENTE\"\n}"
+            },
+            {
+              "name": "Estado inválido (CONVERTIDO llega solo por la conversión)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"ACEPTADO\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Datos inválidos\",\n  \"errors\": [\n    \"\\\"estado\\\" must be one of [ACEPTADO, RECHAZADO]\"\n  ]\n}"
+            },
+            {
+              "name": "No encontrado",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"estado\": \"ACEPTADO\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos/:id/estado",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos",
+                    ":id",
+                    "estado"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Presupuesto no encontrado\"\n}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

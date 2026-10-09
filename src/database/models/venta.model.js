@@ -33,6 +33,14 @@ const Venta = sequelize.define('Venta', {
     allowNull: false,
     defaultValue: 'COMPLETADA',
   },
+  presupuestoId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'presupuestos',
+      key: 'id',
+    },
+  },
 }, {
   tableName: 'ventas',
   timestamps: true,

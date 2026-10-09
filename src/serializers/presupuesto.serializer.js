@@ -1,4 +1,4 @@
-const CAMPOS_PUBLICOS = ['id', 'clienteId', 'presupuestoId', 'fecha', 'estado', 'createdAt', 'updatedAt'];
+const CAMPOS_PUBLICOS = ['id', 'clienteId', 'armadoId', 'fecha', 'fechaVencimiento', 'estado', 'createdAt', 'updatedAt'];
 
 function serializarDetalle(detalle) {
   const plano = detalle.toJSON ? detalle.toJSON() : detalle;
@@ -10,8 +10,8 @@ function serializarDetalle(detalle) {
   };
 }
 
-function serializarVenta(venta) {
-  const plano = venta.toJSON ? venta.toJSON() : venta;
+function serializarPresupuesto(presupuesto) {
+  const plano = presupuesto.toJSON ? presupuesto.toJSON() : presupuesto;
   const dto = CAMPOS_PUBLICOS.reduce((resultado, campo) => {
     resultado[campo] = plano[campo];
     return resultado;
@@ -20,8 +20,8 @@ function serializarVenta(venta) {
   return dto;
 }
 
-function serializarVentas(ventas) {
-  return ventas.map(serializarVenta);
+function serializarPresupuestos(presupuestos) {
+  return presupuestos.map(serializarPresupuesto);
 }
 
-module.exports = { serializarVenta, serializarVentas, CAMPOS_PUBLICOS };
+module.exports = { serializarPresupuesto, serializarPresupuestos, CAMPOS_PUBLICOS };
