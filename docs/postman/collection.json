@@ -2876,7 +2876,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"proveedorId\": 5,\n  \"fecha\": \"2026-10-07\",\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 3,\n      \"precioUnitario\": 258000\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 6,\n      \"precioUnitario\": 56000\n    }\n  ]\n}"
+              "raw": "{\n  \"proveedorId\": 2,\n  \"fecha\": \"2026-10-07\",\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 3,\n      \"precioUnitario\": 258000\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 6,\n      \"precioUnitario\": 56000\n    }\n  ]\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/compras",
@@ -2905,7 +2905,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"proveedorId\": 5,\n  \"fecha\": \"2026-10-07\",\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 3,\n      \"precioUnitario\": 258000\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 6,\n      \"precioUnitario\": 56000\n    }\n  ]\n}"
+                  "raw": "{\n  \"proveedorId\": 2,\n  \"fecha\": \"2026-10-07\",\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 3,\n      \"precioUnitario\": 258000\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 6,\n      \"precioUnitario\": 56000\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/compras",
@@ -2944,7 +2944,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"proveedorId\": 5,\n  \"fecha\": \"2026-10-07\",\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 3,\n      \"precioUnitario\": 258000\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 6,\n      \"precioUnitario\": 56000\n    }\n  ]\n}"
+                  "raw": "{\n  \"proveedorId\": 2,\n  \"fecha\": \"2026-10-07\",\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 3,\n      \"precioUnitario\": 258000\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 6,\n      \"precioUnitario\": 56000\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/compras",
@@ -2983,7 +2983,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"proveedorId\": 5,\n  \"fecha\": \"2026-10-07\",\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 3,\n      \"precioUnitario\": 258000\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 6,\n      \"precioUnitario\": 56000\n    }\n  ]\n}"
+                  "raw": "{\n  \"proveedorId\": 2,\n  \"fecha\": \"2026-10-07\",\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 3,\n      \"precioUnitario\": 258000\n    },\n    {\n      \"productoId\": 5,\n      \"cantidad\": 6,\n      \"precioUnitario\": 56000\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/compras",
@@ -3352,7 +3352,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
+              "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/ventas",
@@ -3381,7 +3381,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
+                  "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/ventas",
@@ -3420,7 +3420,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
+                  "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/ventas",
@@ -3459,7 +3459,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
+                  "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/ventas",
@@ -3498,7 +3498,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
+                  "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/ventas",
@@ -3537,7 +3537,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"clienteId\": 3,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
+                  "raw": "{\n  \"clienteId\": 1,\n  \"fecha\": \"2026-10-08\",\n  \"detalles\": [\n    {\n      \"productoId\": 17,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 31,\n      \"cantidad\": 2\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/ventas",
@@ -5638,7 +5638,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"ventaId\": 4,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 870000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
+              "raw": "{\n  \"ventaId\": 1,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 506000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/pagos",
@@ -5667,7 +5667,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"ventaId\": 4,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 870000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
+                  "raw": "{\n  \"ventaId\": 1,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 506000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/pagos",
@@ -5688,7 +5688,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"Pago registrado\",\n  \"data\": {\n    \"id\": 5,\n    \"ventaId\": 4,\n    \"medioPago\": \"EFECTIVO\",\n    \"monto\": 870000,\n    \"resultado\": \"APROBADO\",\n    \"fecha\": \"2026-10-08\",\n    \"createdAt\": \"2026-10-08T20:00:00.000Z\",\n    \"updatedAt\": \"2026-10-08T20:00:00.000Z\"\n  }\n}"
+              "body": "{\n  \"message\": \"Pago registrado\",\n  \"data\": {\n    \"id\": 4,\n    \"ventaId\": 1,\n    \"medioPago\": \"EFECTIVO\",\n    \"monto\": 506000,\n    \"resultado\": \"APROBADO\",\n    \"fecha\": \"2026-10-08\",\n    \"createdAt\": \"2026-10-08T20:00:00.000Z\",\n    \"updatedAt\": \"2026-10-08T20:00:00.000Z\"\n  }\n}"
             },
             {
               "name": "Venta CANCELADA (solo COMPLETADA se cobra)",
@@ -5706,7 +5706,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"ventaId\": 4,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 870000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
+                  "raw": "{\n  \"ventaId\": 1,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 506000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/pagos",
@@ -5745,7 +5745,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"ventaId\": 4,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 870000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
+                  "raw": "{\n  \"ventaId\": 1,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 506000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/pagos",
@@ -5784,7 +5784,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"ventaId\": 4,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 870000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
+                  "raw": "{\n  \"ventaId\": 1,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 506000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/pagos",
@@ -5823,7 +5823,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"ventaId\": 4,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 870000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
+                  "raw": "{\n  \"ventaId\": 1,\n  \"medioPago\": \"EFECTIVO\",\n  \"monto\": 506000,\n  \"resultado\": \"APROBADO\",\n  \"fecha\": \"2026-10-08\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/pagos",
@@ -6519,7 +6519,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"Dashboard obtenido\",\n  \"data\": {\n    \"productosBajoStock\": {\n      \"total\": 7,\n      \"items\": [\n        {\n          \"id\": 8,\n          \"nombre\": \"ASRock Radeon RX 7600 Challenger\",\n          \"stock\": 0\n        },\n        {\n          \"id\": 22,\n          \"nombre\": \"Fuente Cooler Master 550W\",\n          \"stock\": 2\n        },\n        {\n          \"id\": 5,\n          \"nombre\": \"Teclado mecánico Redragon Kumara\",\n          \"stock\": 3\n        }\n      ]\n    },\n    \"ventasHoy\": {\n      \"cantidad\": 2,\n      \"montoTotal\": 545000\n    },\n    \"ventasMes\": {\n      \"cantidad\": 6,\n      \"montoTotal\": 2735000\n    },\n    \"presupuestosPendientes\": {\n      \"cantidad\": 4\n    },\n    \"comprasRecientes\": [\n      {\n        \"id\": 6,\n        \"proveedorId\": 2,\n        \"fecha\": \"2026-10-07\",\n        \"estado\": \"COMPLETADA\"\n      },\n      {\n        \"id\": 5,\n        \"proveedorId\": 5,\n        \"fecha\": \"2026-10-05\",\n        \"estado\": \"PENDIENTE\"\n      },\n      {\n        \"id\": 4,\n        \"proveedorId\": 3,\n        \"fecha\": \"2026-10-03\",\n        \"estado\": \"COMPLETADA\"\n      }\n    ]\n  }\n}"
+              "body": "{\n  \"message\": \"Dashboard obtenido\",\n  \"data\": {\n    \"productosBajoStock\": {\n      \"total\": 11,\n      \"items\": [\n        {\n          \"id\": 8,\n          \"nombre\": \"ASRock Radeon RX 7600 Challenger\",\n          \"stock\": 0\n        },\n        {\n          \"id\": 7,\n          \"nombre\": \"Gigabyte RTX 4060 Eagle 8GB\",\n          \"stock\": 3\n        },\n        {\n          \"id\": 21,\n          \"nombre\": \"HP 15s-fq\",\n          \"stock\": 3\n        }\n      ]\n    },\n    \"ventasHoy\": {\n      \"cantidad\": 0,\n      \"montoTotal\": 0\n    },\n    \"ventasMes\": {\n      \"cantidad\": 2,\n      \"montoTotal\": 709000\n    },\n    \"presupuestosPendientes\": {\n      \"cantidad\": 2\n    },\n    \"comprasRecientes\": [\n      {\n        \"id\": 2,\n        \"proveedorId\": 2,\n        \"fecha\": \"2026-10-06\",\n        \"estado\": \"PENDIENTE\"\n      },\n      {\n        \"id\": 3,\n        \"proveedorId\": 3,\n        \"fecha\": \"2026-10-04\",\n        \"estado\": \"CANCELADA\"\n      },\n      {\n        \"id\": 1,\n        \"proveedorId\": 1,\n        \"fecha\": \"2026-10-02\",\n        \"estado\": \"COMPLETADA\"\n      }\n    ]\n  }\n}"
             },
             {
               "name": "Sin token",

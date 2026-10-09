@@ -3,103 +3,55 @@
 const PRESUPUESTOS_INICIALES = [
   {
     id: 1,
-    clienteId: 3,
+    clienteId: 1,
     armadoId: 1,
     fecha: '2026-10-08',
-    fechaVencimiento: '2026-10-12',
+    fechaVencimiento: '2026-12-31',
     estado: 'PENDIENTE',
     createdAt: '2026-10-08T15:00:00.000Z',
     updatedAt: '2026-10-08T15:00:00.000Z',
-    detalles: [],
+    detalles: [
+      { id: 1, productoId: 17, cantidad: 1, precioUnitario: 42000 },
+    ],
   },
   {
     id: 2,
-    clienteId: 5,
-    armadoId: 3,
-    fecha: '2026-10-07',
-    fechaVencimiento: '2026-10-14',
+    clienteId: 2,
+    armadoId: null,
+    fecha: '2026-10-06',
+    fechaVencimiento: '2026-12-31',
     estado: 'ACEPTADO',
-    createdAt: '2026-10-07T12:00:00.000Z',
-    updatedAt: '2026-10-09T10:00:00.000Z',
-    detalles: [],
+    createdAt: '2026-10-06T12:00:00.000Z',
+    updatedAt: '2026-10-08T10:00:00.000Z',
+    detalles: [
+      { id: 2, productoId: 5, cantidad: 1, precioUnitario: 68000 },
+      { id: 3, productoId: 10, cantidad: 1, precioUnitario: 95000 },
+    ],
   },
   {
     id: 3,
     clienteId: 1,
-    armadoId: 2,
-    fecha: '2026-10-08',
-    fechaVencimiento: '2026-10-22',
+    armadoId: null,
+    fecha: '2026-09-25',
+    fechaVencimiento: '2026-09-29',
     estado: 'PENDIENTE',
-    createdAt: '2026-10-08T16:00:00.000Z',
-    updatedAt: '2026-10-08T16:00:00.000Z',
+    createdAt: '2026-09-25T14:00:00.000Z',
+    updatedAt: '2026-09-25T14:00:00.000Z',
     detalles: [
-      { id: 1, productoId: 17, cantidad: 1, precioUnitario: 42000 },
-      { id: 2, productoId: 31, cantidad: 2, precioUnitario: 12000 },
+      { id: 4, productoId: 16, cantidad: 1, precioUnitario: 78000 },
     ],
   },
   {
     id: 4,
-    clienteId: 2,
+    clienteId: 3,
     armadoId: null,
-    fecha: '2026-09-30',
-    fechaVencimiento: '2026-10-03',
-    estado: 'PENDIENTE',
-    createdAt: '2026-09-30T11:00:00.000Z',
-    updatedAt: '2026-09-30T11:00:00.000Z',
-    detalles: [
-      { id: 3, productoId: 16, cantidad: 1, precioUnitario: 78000 },
-      { id: 4, productoId: 37, cantidad: 1, precioUnitario: 125000 },
-    ],
-  },
-  {
-    id: 5,
-    clienteId: 6,
-    armadoId: null,
-    fecha: '2026-09-25',
-    fechaVencimiento: '2026-10-01',
-    estado: 'ACEPTADO',
-    createdAt: '2026-09-25T14:00:00.000Z',
-    updatedAt: '2026-10-02T10:00:00.000Z',
+    fecha: '2026-09-28',
+    fechaVencimiento: '2026-10-05',
+    estado: 'CONVERTIDO',
+    createdAt: '2026-09-28T09:00:00.000Z',
+    updatedAt: '2026-10-03T12:00:00.000Z',
     detalles: [
       { id: 5, productoId: 26, cantidad: 1, precioUnitario: 385000 },
-    ],
-  },
-  {
-    id: 6,
-    clienteId: 7,
-    armadoId: null,
-    fecha: '2026-09-22',
-    fechaVencimiento: '2026-09-29',
-    estado: 'RECHAZADO',
-    createdAt: '2026-09-22T10:00:00.000Z',
-    updatedAt: '2026-09-28T16:00:00.000Z',
-    detalles: [
-      { id: 6, productoId: 35, cantidad: 1, precioUnitario: 155000 },
-    ],
-  },
-  {
-    id: 7,
-    clienteId: 4,
-    armadoId: 2,
-    fecha: '2026-09-20',
-    fechaVencimiento: '2026-09-27',
-    estado: 'CONVERTIDO',
-    createdAt: '2026-09-20T09:00:00.000Z',
-    updatedAt: '2026-09-27T12:00:00.000Z',
-    detalles: [],
-  },
-  {
-    id: 8,
-    clienteId: 8,
-    armadoId: null,
-    fecha: '2026-10-09',
-    fechaVencimiento: '2026-10-11',
-    estado: 'PENDIENTE',
-    createdAt: '2026-10-09T10:30:00.000Z',
-    updatedAt: '2026-10-09T10:30:00.000Z',
-    detalles: [
-      { id: 7, productoId: 23, cantidad: 1, precioUnitario: 480000 },
-      { id: 8, productoId: 32, cantidad: 1, precioUnitario: 26000 },
     ],
   },
 ];
@@ -118,14 +70,12 @@ module.exports = {
       detalles.map((detalle) => ({ ...detalle, presupuestoId: id })),
     );
 
-    if (detallesPlanos.length > 0) {
-      await queryInterface.bulkInsert('presupuesto_detalles', detallesPlanos);
-    }
+    await queryInterface.bulkInsert('presupuesto_detalles', detallesPlanos);
 
     await queryInterface.bulkUpdate(
       'ventas',
-      { presupuestoId: 7 },
-      { id: 7 },
+      { presupuestoId: 4 },
+      { id: 3 },
     );
 
     await queryInterface.sequelize.query(
@@ -140,7 +90,7 @@ module.exports = {
     await queryInterface.bulkUpdate(
       'ventas',
       { presupuestoId: null },
-      { presupuestoId: 7 },
+      { presupuestoId: 4 },
     );
 
     await queryInterface.bulkDelete('presupuesto_detalles', {

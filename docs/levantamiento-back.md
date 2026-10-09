@@ -122,12 +122,14 @@ El test de la request **Login** guarda el token en el environment automáticamen
 
 ### 8.1 Reset de datos (sin recrear el contenedor)
 
-Trunca las tablas y vuelve a sembrar:
+Trunca todas las tablas de negocio, limpia el registro de seeds y vuelve a sembrar. **No usar `db:seed:undo:all` para resets completos:** los seeders comparten FKs (presupuestos → armados/ventas → presupuesto) y el undo en orden inverso puede chocar con las restricciones.
 
 ```bash
-docker exec gestion-inf-db psql -U postgres -d gestion_informatica -c "TRUNCATE usuarios RESTART IDENTITY CASCADE;"
+docker exec gestion-inf-db psql -U postgres -d gestion_informatica -c "TRUNCATE TABLE pagos, venta_detalles, ventas, presupuesto_detalles, presupuestos, armado_componentes, armados, compra_detalles, compras, clientes, proveedores, productos, categorias, usuarios RESTART IDENTITY CASCADE; DELETE FROM \"SequelizeData\";"
 npx sequelize-cli db:seed:all
 ```
+
+Los seeders están ordenados por timestamp para que las FKs se resuelvan al sembrar de cero (armados antes de presupuestos; presupuestos linkea la venta del CONVERTIDO en su `up`).
 
 Si el histórico de `SequelizeMeta` también se quiere limpiar (re-correr migraciones desde cero sobre el mismo contenedor):
 
