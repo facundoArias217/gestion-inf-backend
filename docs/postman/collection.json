@@ -6185,6 +6185,127 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Obtener",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboard"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Indicadores operativos (CE-DSH-01)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dashboard",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboard"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Dashboard obtenido\",\n  \"data\": {\n    \"productosBajoStock\": {\n      \"total\": 7,\n      \"items\": [\n        {\n          \"id\": 8,\n          \"nombre\": \"ASRock Radeon RX 7600 Challenger\",\n          \"stock\": 0\n        },\n        {\n          \"id\": 22,\n          \"nombre\": \"Fuente Cooler Master 550W\",\n          \"stock\": 2\n        },\n        {\n          \"id\": 5,\n          \"nombre\": \"Teclado mecánico Redragon Kumara\",\n          \"stock\": 3\n        }\n      ]\n    },\n    \"ventasHoy\": {\n      \"cantidad\": 2,\n      \"montoTotal\": 545000\n    },\n    \"ventasMes\": {\n      \"cantidad\": 6,\n      \"montoTotal\": 2735000\n    },\n    \"presupuestosPendientes\": {\n      \"cantidad\": 4\n    },\n    \"comprasRecientes\": [\n      {\n        \"id\": 6,\n        \"proveedorId\": 2,\n        \"fecha\": \"2026-10-07\",\n        \"estado\": \"COMPLETADA\"\n      },\n      {\n        \"id\": 5,\n        \"proveedorId\": 5,\n        \"fecha\": \"2026-10-05\",\n        \"estado\": \"PENDIENTE\"\n      },\n      {\n        \"id\": 4,\n        \"proveedorId\": 3,\n        \"fecha\": \"2026-10-03\",\n        \"estado\": \"COMPLETADA\"\n      }\n    ]\n  }\n}"
+            },
+            {
+              "name": "Sin token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dashboard",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboard"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Token no proporcionado\"\n}"
+            },
+            {
+              "name": "Con VENDEDOR (solo ADMIN)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dashboard",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboard"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"No tenés permisos para realizar esta operación\"\n}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
