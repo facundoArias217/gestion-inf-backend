@@ -142,6 +142,15 @@ Aprobadas con el MVP terminado (42/42). Convenciones idénticas: una tarjeta = u
 | 13.4 | FE | Presupuesto imprimible (ruta A4 con @media print) | fe/presupuesto-imprimible | 9.2 |
 | 13.5 | FE | Acciones de duplicado en presupuestos y armados | fe/duplicaciones-ui | 13.2, 13.3 |
 
+## Módulo 14 — Mejoras post-MVP (Lote 2: Oleada B, búsqueda y tablas)
+
+| ID | Tipo | Título | Rama | Depende de |
+| --- | --- | --- | --- | --- |
+| 14.1 | FE | Búsqueda en listados: buscador expansivo (lupa → «Buscar…») con filtrado en vivo | fe/busqueda-listados | — |
+| 14.2 | FE | Combobox buscable: filtro de categorías de Productos y selects de formularios | fe/combobox-buscable | 14.1 |
+| 14.3 | FE | Orden por columna clickeable (reemplaza OrdenSelect) | fe/sort-columnas | 14.1 |
+| 14.4 | FE | Paginación client-side de 10 por página | fe/paginacion | 14.1 |
+
 ---
 
 ## Totales
