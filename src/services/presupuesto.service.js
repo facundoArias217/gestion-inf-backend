@@ -27,6 +27,12 @@ function hoy() {
   return new Date().toISOString().slice(0, 10);
 }
 
+function enDias(dias) {
+  const fecha = new Date();
+  fecha.setUTCDate(fecha.getUTCDate() + dias);
+  return fecha.toISOString().slice(0, 10);
+}
+
 async function validarEncabezado({ clienteId, fecha, fechaVencimiento, armadoId, detalles }) {
   if (fechaVencimiento < fecha) {
     throw errorDeNegocio(
@@ -279,4 +285,37 @@ async function convertir(id, usuarioId) {
   };
 }
 
-module.exports = { listar, crear, cambiarEstado, convertir };
+async function duplicar(id, usuarioId) {
+  const original = await Presupuesto.findByPk(id, {
+    include: [{ model: PresupuestoDetalle, as: 'detalles' }],
+  });
+
+  if (!original) {
+    throw errorDeNegocio('Presupuesto no encontrado', 404);
+  }
+
+  const detalles = original.detalles.map((detalle) => ({
+    productoId: detalle.productoId,
+    cantidad: detalle.cantidad,
+  }));
+
+  if (detalles.length === 0 && original.armadoId == null) {
+    throw errorDeNegocio(
+      'El presupuesto no tiene productos ni armado para duplicar',
+      400,
+    );
+  }
+
+  return crear(
+    {
+      clienteId: original.clienteId,
+      fecha: hoy(),
+      fechaVencimiento: enDias(2),
+      armadoId: original.armadoId,
+      detalles,
+    },
+    usuarioId,
+  );
+}
+
+module.exports = { listar, crear, cambiarEstado, convertir, duplicar };

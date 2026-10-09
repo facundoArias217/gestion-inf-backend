@@ -43,4 +43,13 @@ async function convertir(req, res, next) {
   }
 }
 
-module.exports = { listar, crear, cambiarEstado, convertir };
+async function duplicar(req, res, next) {
+  try {
+    const data = await presupuestoService.duplicar(req.params.id, req.usuario.id);
+    return res.status(201).json({ message: 'Presupuesto duplicado', data });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+module.exports = { listar, crear, cambiarEstado, convertir, duplicar };

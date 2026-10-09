@@ -16,6 +16,7 @@ router.use(autorizar('ADMIN', 'VENDEDOR'));
 router.get('/', controller.listar);
 router.post('/', validarCrearPresupuesto, controller.crear);
 router.post('/:id/convertir', validarId, controller.convertir);
+router.post('/:id/duplicar', validarId, controller.duplicar);
 router.patch(
   '/:id/estado',
   validarId,

@@ -5230,6 +5230,146 @@
               "body": "{\n  \"message\": \"Presupuesto no encontrado\"\n}"
             }
           ]
+        },
+        {
+          "name": "Duplicar",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/presupuestos/:id/duplicar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "presupuestos",
+                ":id",
+                "duplicar"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Duplicado (recotización: PENDIENTE con precios de lista actuales)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos/:id/duplicar",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos",
+                    ":id",
+                    "duplicar"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Presupuesto duplicado\",\n  \"data\": {\n    \"id\": 9,\n    \"clienteId\": 1,\n    \"armadoId\": 2,\n    \"fecha\": \"2026-10-09\",\n    \"fechaVencimiento\": \"2026-10-11\",\n    \"estado\": \"PENDIENTE\",\n    \"detalles\": [\n      {\n        \"id\": 9,\n        \"productoId\": 17,\n        \"cantidad\": 1,\n        \"precioUnitario\": 42000\n      },\n      {\n        \"id\": 10,\n        \"productoId\": 31,\n        \"cantidad\": 2,\n        \"precioUnitario\": 12000\n      }\n    ],\n    \"createdAt\": \"2026-10-09T10:00:00.000Z\",\n    \"updatedAt\": \"2026-10-09T10:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "Sin armado ni productos (imposible en la práctica)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos/:id/duplicar",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos",
+                    ":id",
+                    "duplicar"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"El presupuesto no tiene productos ni armado para duplicar\"\n}"
+            },
+            {
+              "name": "No encontrado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/presupuestos/:id/duplicar",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "presupuestos",
+                    ":id",
+                    "duplicar"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Presupuesto no encontrado\"\n}"
+            }
+          ]
         }
       ]
     },
