@@ -130,6 +130,18 @@ División justificada: la conversión es el flujo más complejo del sistema (rev
 
 Último módulo por dependencia: el dashboard agrega datos de productos, compras, ventas y presupuestos.
 
+## Módulo 13 — Mejoras post-MVP (Lote 1: visual + comercial)
+
+Aprobadas con el MVP terminado (42/42). Convenciones idénticas: una tarjeta = una rama, informe en el mismo commit, Postman en el mismo commit del BE, skill si se decide una regla.
+
+| ID | Tipo | Título | Rama | Depende de |
+| --- | --- | --- | --- | --- |
+| 13.1 | FE | Oleada visual: fechas locales, empty states, jerarquía, badges accesibles, dark mode, conteos | fe/mejoras-visuales | — |
+| 13.2 | BE | Presupuestos: duplicar (recotización en un clic, RFN-22) | be/presupuestos-duplicar | 9.3 |
+| 13.3 | BE | Armados: duplicar como plantilla (BORRADOR con precios actuales) | be/armados-duplicar | 8.3 |
+| 13.4 | FE | Presupuesto imprimible (ruta A4 con @media print) | fe/presupuesto-imprimible | 9.2 |
+| 13.5 | FE | Acciones de duplicado en presupuestos y armados | fe/duplicaciones-ui | 13.2, 13.3 |
+
 ---
 
 ## Totales
